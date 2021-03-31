@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="CV_20193148_32.cpp" />
     <ClCompile Include="CV_20193148_35.cpp" />
+    <ClCompile Include="소스.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
