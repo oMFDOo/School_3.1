@@ -21,5 +21,8 @@
     <ClCompile Include="5주차-마우스클릭.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="5주차-과제_공충돌구현.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
