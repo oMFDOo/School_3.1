@@ -153,7 +153,11 @@
     <ClCompile Include="CV_20193148_32.cpp" />
     <ClCompile Include="CV_20193148_35.cpp" />
     <ClCompile Include="cv_52_20193148.cpp" />
-    <ClCompile Include="소스.cpp" />
+    <ClCompile Include="cv_61_20193148.cpp" />
+    <ClCompile Include="cv_62_20193148.cpp" />
+    <ClCompile Include="cv_63_20193148.cpp" />
+    <ClCompile Include="cv_51_20193148.cpp" />
+    <ClCompile Include="소스1.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

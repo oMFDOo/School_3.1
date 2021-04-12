@@ -21,10 +21,22 @@
     <ClCompile Include="CV_20193148_35.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="소스.cpp">
+    <ClCompile Include="cv_52_20193148.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cv_52_20193148.cpp">
+    <ClCompile Include="cv_61_20193148.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cv_62_20193148.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cv_63_20193148.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="소스1.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cv_51_20193148.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
