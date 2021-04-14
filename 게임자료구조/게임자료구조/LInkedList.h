@@ -40,4 +40,44 @@ public:
 	Student* findStudent(int sId); // sId에 해당하는 노드 찾기 (Impl 4)
 };
 
+// 마지막에 노드 추가
+void SLinkedList::addLast(Student* sptr) {
+
+}
+
+// 처음에 노드 추가 
+void SLinkedList::addFirst(Student* sptr) {
+
+}
+
+// n번 째 노드 뒤에 새로운 노드 추가 (Impl 2)
+void SLinkedList::addAfterN(int n, Student* sptr) {
+
+}
+
+// 마지막 노드 삭제
+Student* SLinkedList::deleteLast() {
+
+}
+
+// 첫 노드 삭제
+Student* SLinkedList::deleteFirst() {
+
+}
+
+// n번 째 노드 뒤의 노드 삭제 (Impl 3)
+Student* SLinkedList::deleteAfterN(int n) {
+
+}
+
+// List의 모든 node의 저장된 내용을 화면에 출력 (Impl 3)
+void SLinkedList::traverse() {
+
+}
+
+// sId에 해당하는 노드 찾기 (Impl 4)
+Student* SLinkedList::findStudent(int sId) {
+
+}
+
 #endif

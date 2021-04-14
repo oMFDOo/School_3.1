@@ -141,6 +141,7 @@
     <ClCompile Include="4주차-다각형.cpp" />
     <ClCompile Include="5주차-과제_공충돌구현.cpp" />
     <ClCompile Include="5주차-마우스클릭.cpp" />
+    <ClCompile Include="6주차-베이저곡선.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
