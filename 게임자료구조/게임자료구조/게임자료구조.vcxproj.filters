@@ -15,46 +15,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LInkedList.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="4주차대면-월.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="4주차 대면 - 목.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="QueueTest.cc">
+    <ClCompile Include="6주차 대면 - 목.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CircularQueue.cc">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CircularQueueTest.cc">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Stack.cc">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="StackTest.cc">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SimpleQueue\SimpleQueue.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="LInkedList.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CircularQueue.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Stack.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SimpleQueue\SimpleQueue.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

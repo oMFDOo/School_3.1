@@ -1,23 +1,5 @@
-﻿  SimpleQueue.cpp
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.h(23,47): error C2614: 'Queue': 멤버 초기화가 잘못되었습니다. 'length'이(가) 기본 또는 멤버가 아닙니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.h(31,26): error C2065: 'length': 선언되지 않은 식별자입니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(15,17): error C2065: 'length': 선언되지 않은 식별자입니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(32,12): error C2039: 'deQueue': 'Queue'의 멤버가 아닙니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.h(17): message : 'Queue' 선언을 참조하십시오.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(33,7): error C2672: 'std::empty': 일치하는 오버로드된 함수가 없습니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(33,5): error C2780: 'bool std::empty(std::initializer_list<_Elem>) noexcept': 인수가 1개 있어야 하는데 0개를 사용했습니다.
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\xutility(2041): message : 'std::empty' 선언을 참조하십시오.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(33,5): error C2780: 'bool std::empty(const _Ty (&)[_Size]) noexcept': 인수가 1개 있어야 하는데 0개를 사용했습니다.
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\xutility(2036): message : 'std::empty' 선언을 참조하십시오.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(33,5): error C2780: 'unknown-type std::empty(const _Container &)': 인수가 1개 있어야 하는데 0개를 사용했습니다.
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610\include\xutility(2031): message : 'std::empty' 선언을 참조하십시오.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(34,7): error C2563: 정식 매개 변수 목록과 일치하지 않는 항목이 있습니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(35,10): error C2065: 'dataArray': 선언되지 않은 식별자입니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(35,22): error C2065: 'front': 선언되지 않은 식별자입니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(43,12): error C2039: 'Front': 'Queue'의 멤버가 아닙니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.h(17): message : 'Queue' 선언을 참조하십시오.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(44,9): error C2065: 'front': 선언되지 않은 식별자입니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.cpp(52,32): error C2039: 'length': 'Queue'의 멤버가 아닙니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\SimpleQueue\SimpleQueue.h(17): message : 'Queue' 선언을 참조하십시오.
+﻿  4주차대면-월.cpp
+  6주차 대면 - 목.cpp
+  코드를 생성하고 있습니다...
+MSVCRTD.lib(exe_main.obj) : error LNK2019: _main 외부 기호(참조 위치: "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) 함수)에서 확인하지 못했습니다.
+D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\게임자료구조\Debug\게임자료구조.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.

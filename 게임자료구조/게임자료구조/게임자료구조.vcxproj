@@ -138,21 +138,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\SimpleQueue\SimpleQueue.cpp" />
     <ClCompile Include="4주차대면-월.cpp" />
     <ClCompile Include="4주차 대면 - 목.cpp" />
-    <ClCompile Include="CircularQueue.cc" />
-    <ClCompile Include="CircularQueueTest.cc" />
-    <ClCompile Include="LInkedList.cpp" />
-    <ClCompile Include="QueueTest.cc" />
-    <ClCompile Include="Stack.cc" />
-    <ClCompile Include="StackTest.cc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\SimpleQueue\SimpleQueue.h" />
-    <ClInclude Include="CircularQueue.h" />
-    <ClInclude Include="LInkedList.h" />
-    <ClInclude Include="Stack.h" />
+    <ClCompile Include="6주차 대면 - 목.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
