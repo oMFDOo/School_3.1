@@ -24,7 +24,7 @@
     <ClCompile Include="5주차-과제_공충돌구현.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="6주차-베이저곡선.cpp">
+    <ClCompile Include="6주차-베지어곡선.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
