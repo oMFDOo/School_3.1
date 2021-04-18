@@ -22,27 +22,30 @@ int Combination(int n, int r) {
 	return result;
 }
 
+// Bernstein Polynomial : nCk * (1-t)^(n-k) * t^k
 double Bernstein(int num, double k, double t) {
-	return Combination(num, k)* pow(t, k)* pow((1 - t), num - k);
+	return Combination(num, k) * pow((1 - t), num - k) * pow(t, k);
 }
 
 void Draw_Bezier_Curve(void) {
 
-	// GL_LINE_STRIP // Bernstein
-	//**********************//
 	glColor3f(1.0, 0.0, 0.0);
 	glBegin(GL_LINE_STRIP);
 
 	double part = 1.0 / 80;
-	double sumx, sumy;
-	double high;
-	int px, py;
+	double sumx, sumy;  
+	double high;  // 가중치 값
+	int px, py; // P0, P1, P2, ... Pn
 
+	// 초기 점 지정
 	px = point[0][0];
 	py = point[0][1];
 	glVertex2d(px, py);
+
+	// 시간(t)의 흐름
 	for (double t = part; t <= 1.0; t += part) {
 		sumx = sumy = 0;
+		// Pi를 곱해주는 과정 : 1=0 Σ n
 		for (int i = 0; i < num; i++) {
 			high = Bernstein(num -1, i, t);
 			sumx += high * point[i][0];
