@@ -143,6 +143,7 @@
     <ClCompile Include="5주차-마우스클릭.cpp" />
     <ClCompile Include="6주차-베지어곡선.cpp" />
     <ClCompile Include="자전공전.cpp" />
+    <ClCompile Include="테스트용.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
