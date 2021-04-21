@@ -1,6 +1,4 @@
 //#include <windows.h>
-////#include <gl/gl.h>
-////#include <gl/glut.h> // (or others, depending on the system in use)
 //#include <freeglut.h>
 //#include <math.h>
 //
@@ -13,6 +11,7 @@
 //GLsizei   action;
 //GLsizei   xini = 0, yini = 0;
 //GLfloat   xmov = 0.0, ymov = 0.0;
+//double ez, xAngle, yAngle, zAngle;
 //
 //int		left = 0;
 //int		bottom = 0;
@@ -22,6 +21,10 @@
 //float	radius = 10.0;
 //float	point[1000][2];
 //int		point_num = 0;
+//
+//
+//double Far = 100.0;
+//double Near = 0.1;
 //
 //typedef struct _Point {
 //	float	x;
@@ -46,7 +49,6 @@
 //void	Modeling_Circle(Point CC) {
 //	float	delta;
 //
-//
 //	glPointSize(3.0);
 //	delta = 2 * PI / polygon_num;
 //
@@ -56,15 +58,15 @@
 //	glEnd();
 //}
 //
-//void drawSq() {
-//	glBegin(GL_QUADS);
-//	glVertex2f(-0.5f, -0.5f);
-//	glVertex2f(0.5f, -0.5f);
-//	glVertex2f(0.5f, 0.5f);
-//	glVertex2f(-0.5f, 0.5f);
-//	glEnd();
-//	glFinish();
-//}
+////void drawSq() {
+////	glBegin(GL_QUADS);
+////	glVertex2f(-0.5f, -0.5f);
+////	glVertex2f(0.5f, -0.5f);
+////	glVertex2f(0.5f, 0.5f);
+////	glVertex2f(-0.5f, 0.5f);
+////	glEnd();
+////	glFinish();
+////}
 //
 //
 //void	Modeling_Points_from_Screen(void) {
@@ -95,7 +97,7 @@
 //
 //	// 마우스 왼쪽 버튼 클릭을 통해 얻어진 점 생성하기
 //	Modeling_Points_from_Screen();
-//
+//	glLoadIdentity();
 //	glFlush();
 //}
 //
@@ -159,11 +161,10 @@
 //	case GLUT_KEY_RIGHT:	left -= 1.0; break;
 //	case GLUT_KEY_DOWN:		bottom += 1.0; break;
 //	case GLUT_KEY_UP:		bottom -= 1.0; break;
-//	case GLUT_KEY_ALT_L:	left -= 30.0; bottom -= 30.0; break;
-//	case GLUT_KEY_CTRL_L:	left += 30.0; bottom += 30.0; break;
+//	case GLUT_KEY_ALT_L:	ez -= 10.0; break;
+//	case GLUT_KEY_CTRL_L:	ez += 10.0; break;
 //	default:	break;
 //	}
-//	glutPostRedisplay();
 //}
 //
 //void main(int argc, char** argv) {
@@ -172,7 +173,7 @@
 //	glutInitWindowSize(width, height);
 //	glutCreateWindow("Draw Points by Mouse Input");
 //	glutDisplayFunc(RenderScene);
-//	glutDisplayFunc(drawSq);
+//	//glutDisplayFunc(drawSq);
 //	glutMouseFunc(mouse1);
 //	glutMotionFunc(motion);
 //	glutSpecialFunc(MySpecial);

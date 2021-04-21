@@ -28,7 +28,7 @@ void report(int event, int x, int y, int flags, void* userdata) {
 		// 마우스 드래그 하는 경우
 		if (drag) {
 			// 드래그 시 잔상 제거
-			//Mat img_drag(img_color, Rect(Point(start_x, start_y), Point(x, y)));
+			Mat img_drag(img_color, Rect(Point(start_x, start_y), Point(x, y)));
 
 			// 테두리 그리기
 			rectangle(img_result, Point(start_x, start_y), Point(x, y), Scalar(0, 0, 255), 3, LINE_8, 0);
