@@ -1,5 +1,2 @@
-﻿  4주차대면-월.cpp
-  6주차 대면 - 목.cpp
-  코드를 생성하고 있습니다...
-MSVCRTD.lib(exe_main.obj) : error LNK2019: _main 외부 기호(참조 위치: "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) 함수)에서 확인하지 못했습니다.
-D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\게임자료구조\Debug\게임자료구조.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.
+﻿  6주차 대면 - 목.cpp
+  게임자료구조.vcxproj -> D:\★과제물★\3학년 1학기\School_3.1\게임자료구조\게임자료구조\Debug\게임자료구조.exe
