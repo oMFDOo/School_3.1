@@ -55,38 +55,32 @@ public:
 
 template <typename T>
 T Node<T>::getData() {
-	return this->data;
+	return data;
 }
 
 template <typename T>
-void Node<T>::setData(T& data) {
-	this->data = data.data;
+void Node<T>::setData(T& d) {
+	data = d;
 }
 
 template <typename T>
 Node<T>* Node<T>::getLeftNode() {
-	if (this->left == NULL) {
-		return NULL;
-	}
-	return this->left;
+	return left;
 }
 
 template <typename T>
 Node<T>* Node<T>::getRightNode() {
-	if (this->right == NULL) {
-		return NULL;
-	}
-	return this->right;
+	return right;
 }
 
 template <typename T>
 void Node<T>::setLeftNode(Node<T>* node) {
-	this->left = node;
+	left = node;
 }
 
 template <typename T>
 void Node<T>::setRightNode(Node<T>* node) {
-	this->right = node;
+	right = node;
 }
 
 
@@ -110,12 +104,13 @@ bool BinarySearchTree<T>::searchData(T& data) {
 }
 
 
-// Q. 데이터 삽입의 반환형이 왜 Bool인가요?
 template <typename T>
 bool BinarySearchTree<T>::insertData(T& data) {
+	Node<T> *input = new Node<T>(data);
+
 	// 데이터가 없을 경우
 	if (root == NULL) {
-		root = new Node<T>(data); return true;
+		root = input; return true;
 	}
 	else if (searchData(data)) {
 		return false;
@@ -127,15 +122,15 @@ bool BinarySearchTree<T>::insertData(T& data) {
 			if (find->getData() < data) {
 				// 오른쪽 노드가 비어있다면?
 				if (find->getRightNode() == NULL) {
-					find->setRightNode(data);
+					find->setRightNode(input);
 					size++; return true;
 				}
 				find = find->getRightNode();
 			}
-			if (find->getData() >= data) {
+			if (find->getData() > data) {
 				// 왼쪽 노드가 비어있다면?
 				if (find->getLeftNode() == NULL) {
-					find->setRightNode(data);
+					find->setLeftNode(input);
 					size++; return true;
 				}
 				find = find->getLeftNode();
@@ -147,29 +142,25 @@ bool BinarySearchTree<T>::insertData(T& data) {
 
 template <typename T>
 bool BinarySearchTree<T>::removeData(T& data) {
-	// 트리에 데이터가 없을 경우
+	// 트리에 노드 혹은 동일 데이터가 없을 경우
 	if (root == NULL || !searchData(data)) {
 		return false;
 	}
 	else {
 		Node<T>* find = root;
+		Node<T>* search = NULL;
 		Node<T>* deleteNode = NULL;
+		Node<T>* parents = NULL;
 		queue<Node<T>*> dataSet;
-		int direction = -1; // 1 : 왼쪽 , 0 : 오른쪽  
-
-		// 첫노드는 따로 체크하기
-		if (root->getData() == data) {
-			direction == 1;
-		}
-
+		int subTree = -1; // 서브트리 타입
 		while (true) {
-			// 같은 데이터를 찾은 경우
+			if (find->getData() == data) { deleteNode = find; break; }
 			if (find->getLeftNode() != NULL) {
-				if (find->getLeftNode()->getData() == data) { deleteNode = find; direction = 1; break; }
+				if (find->getLeftNode()->getData() == data) { parents = find; }
 				dataSet.push(find->getLeftNode());
-			}
+			} 
 			if (find->getRightNode() != NULL) {
-				if (find->getRightNode()->getData() == data) { deleteNode = find; direction = 0; break; }
+				if (find->getRightNode()->getData() == data) { parents = find; }
 				dataSet.push(find->getRightNode());
 			}
 			if (find->getLeftNode() == NULL &&
@@ -179,48 +170,73 @@ bool BinarySearchTree<T>::removeData(T& data) {
 			dataSet.pop();
 		}
 
-		Node<T>* search = NULL;
-		if (direction == 1) {
-			// 실제 삭제될 노드
-			search = deleteNode->getLeftNode();
+		if (deleteNode->getLeftNode() == NULL && deleteNode->getRightNode() == NULL) { subTree = -1;}
+		else if(deleteNode->getLeftNode() != NULL && deleteNode->getRightNode() != NULL) { subTree = 2; }
+		else if (deleteNode->getLeftNode() != NULL) { subTree = 0; } // 왼쪽만 존재
+		else if (deleteNode->getRightNode() != NULL) { subTree = 1; } // 오른쪽만 존재
 
-			// 우측 노드가 없는 경우
-			if (search->getRightNode() == NULL) {
-				deleteNode->setLeftNode(search->getLeftNode());
-				size--; return true;
+		// 서브트리 없음 : 단말노드 일 경우
+		if (subTree == -1) {
+			if (parents->getRightNode() != NULL) {
+				if (parents->getRightNode()->getData() == data) {
+					parents->setRightNode(NULL); delete deleteNode; return true;
+				}
 			}
-
-			// 최 우측 노드 탐색
-			for (; deleteNode->getRightNode()->getRightNode() != NULL; deleteNode = deleteNode->getRightNode()) {}
-
-			// 삭제노드의 값을 최우측 노드의 값으로 설정
-			deleteNode->setLeftNode(search->getRightNode()->getRightNode());
-			// 최우측 노드 부모의 오른쪽값 NULL 설정
-			search->getRightNode()->setRightNode(NULL);
-			size--; return true;
-
+			if (parents->getLeftNode() != NULL) {
+				if (parents->getLeftNode()->getData() == data) {
+					parents->setLeftNode(NULL); delete deleteNode; return true;
+				}
+			}
 		}
-		else if (direction == 0) {
-			// 실제 삭제될 노드
-			search = deleteNode->getRightNode();
-
-			// 좌측 노드가 없는 경우
-			if (search->getLeftNode() == NULL) {
-				deleteNode->setRightNode(search->getRgihtNode());
-				size--; return true;
+		// 왼쪽 서브트리만 존재
+		if (subTree == 0) {
+			if (parents->getRightNode() != NULL) {
+				if (parents->getRightNode()->getData() == data) {
+					parents->setRightNode(deleteNode->getLeftNode()); delete deleteNode; return true;
+				}
+			}
+			if (parents->getLeftNode() != NULL) {
+				if (parents->getLeftNode()->getData() == data) {
+					parents->setLeftNode(deleteNode->getLeftNode()); delete deleteNode; return true;
+				}
+			}
+		}
+		// 오른쪽 서브트리만 존재
+		if (subTree == 1) {
+			if (parents->getRightNode() != NULL) {
+				if (parents->getRightNode()->getData() == data) {
+					parents->setRightNode(deleteNode->getRightNode()); delete deleteNode; return true;
+				}
+			}
+			if (parents->getLeftNode() != NULL) {
+				if (parents->getLeftNode()->getData() == data) {
+					parents->setLeftNode(deleteNode->getRightNode()); delete deleteNode; return true;
+				}
+			}
+		}
+		// 양쪽 서브트리 존재
+		if (subTree == 2) {
+			if (deleteNode->getRightNode()->getLeftNode() == NULL &&
+				deleteNode->getRightNode()->getRightNode() == NULL) {
+				int set = deleteNode->getRightNode()->getData();
+				deleteNode->setData(set);
+				deleteNode->setRightNode(NULL); return true;
 			}
 
-			// 최 좌측 노드 탐색
-			for (; deleteNode->getLeftNode()->getLeftNode() != NULL; deleteNode = deleteNode->getLeftNode()) {}
+			// 삭제할 노드의 우측 노드 중 최 좌측 노드 탐색
+			search = deleteNode->getRightNode();
+			while (search->getLeftNode() != NULL) {
+				search = search->getLeftNode();
+			}
+			int set = search->getData();
+			deleteNode->setData(set);
 
-			// 삭제노드의 값을 최좌측 노드의 값으로 설정
-			deleteNode->setRightNode(search->getLeftNode()->getLeftNode());
-			// 최우측 노드 부모의 오른쪽값 NULL 설정
-			search->getLeftNode()->setLeftNode(NULL);
-
-			size--; return true;
+			// 최 좌측 노드의 오른쪽 노드 존재 가능성
+			*search = *(search->getRightNode());
+			return true;
 		}
 	}
+	return false;
 }
 
 
