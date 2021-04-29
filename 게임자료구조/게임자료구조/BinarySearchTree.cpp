@@ -1,20 +1,20 @@
 #include "BinarySearchTree.h"
 
 /* 생성 트리
- 4 - 9 - 3 - 7 - 8 - 9 - 2 - 10
+ 4 - 9 - 3 - 7 - 6 - 9 - 2 - 12 - 11 - 13
        4
 	  / \
 	 3	 9
 	/   / \
-   2   7  10
-        \
-		 8
+   2   7  12
+      /  /  \
+	 6	11  13
 */
 int main() {
 	BinarySearchTree<int> *BST = new BinarySearchTree<int>;
 
 	// 중복 데이터 9 존재
-	int insertValue[] = { 4, 9, 3, 7, 8, 9, 2, 10};
+	int insertValue[] = { 4, 9, 3, 7, 6, 9, 2, 12, 11, 13};
 	for (int i = 0; i < sizeof(insertValue) / sizeof(int); i++) {
 		cout << "Insert Data : " << insertValue[i] << "   \t";
 		if (BST->insertData(insertValue[i])) cout << "Succeed" << endl;

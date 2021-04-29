@@ -150,8 +150,8 @@ bool BinarySearchTree<T>::removeData(T& data) {
 		Node<T>* find = root;
 		Node<T>* search = NULL;
 		Node<T>* deleteNode = NULL;
-		Node<T>* parents = NULL;
 		queue<Node<T>*> dataSet;
+		Node<T>* parents = NULL;
 		int subTree = -1; // 서브트리 타입
 		while (true) {
 			if (find->getData() == data) { deleteNode = find; break; }
@@ -223,16 +223,26 @@ bool BinarySearchTree<T>::removeData(T& data) {
 				deleteNode->setRightNode(NULL); return true;
 			}
 
+			int isP = -1;
+
 			// 삭제할 노드의 우측 노드 중 최 좌측 노드 탐색
 			search = deleteNode->getRightNode();
 			while (search->getLeftNode() != NULL) {
+				if (search->getLeftNode()->getLeftNode() == NULL) {
+					parents = search;
+				}
 				search = search->getLeftNode();
 			}
 			int set = search->getData();
 			deleteNode->setData(set);
 
 			// 최 좌측 노드의 오른쪽 노드 존재 가능성
-			*search = *(search->getRightNode());
+			if (search->getRightNode() != NULL) {
+				parents->setLeftNode(search->getRightNode());
+			}
+			else {
+				parents->setLeftNode(NULL);
+			}
 			return true;
 		}
 	}
