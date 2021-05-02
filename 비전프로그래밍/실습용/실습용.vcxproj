@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="9주차과제.cpp" />
     <ClCompile Include="CV_20193148_32.cpp" />
     <ClCompile Include="CV_20193148_35.cpp" />
     <ClCompile Include="cv_52_20193148.cpp" />
