@@ -33,11 +33,11 @@ void polygon(int a, int b, int c, int d) {
 	glEnd();
 }
 void cube(void) {
-	polygon(2, 3, 7, 6);
+	polygon(5, 4, 0, 1);
 	polygon(4, 5, 6, 7);
 	polygon(3, 0, 4, 7);
+	polygon(2, 3, 7, 6);
 	polygon(1, 2, 6, 5);
-	polygon(5, 4, 0, 1);
 	polygon(0, 3, 2, 1);
 
 }
@@ -71,6 +71,7 @@ void axis(void) {
 
 void frame_reset(void) {
 	glClearColor(0.6, 0.6, 0.6, 0.0);
+	// 버퍼 리셋
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
