@@ -27,10 +27,13 @@
     <ClCompile Include="6주차-베지어곡선.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="자전공전.cpp">
+    <ClCompile Include="테스트용.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="테스트용.cpp">
+    <ClCompile Include="9주차-3D큐브.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="7주차-자전공전.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
