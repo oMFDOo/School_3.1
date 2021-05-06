@@ -147,9 +147,6 @@
 //	/* Update the stored mouse position for later use */
 //	xini = x;
 //	yini = y;
-//
-//
-//
 //	glutPostRedisplay();
 //}
 //
