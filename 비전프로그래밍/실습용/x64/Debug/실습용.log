@@ -1,3 +1,2 @@
-﻿  9주차과제.cpp
-MSVCRTD.lib(exe_main.obj) : error LNK2019: main 외부 기호(참조 위치: "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) 함수)에서 확인하지 못했습니다.
-D:\★과제물★\3학년 1학기\School_3.1\비전프로그래밍\실습용\x64\Debug\실습용.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.
+﻿  소스1.cpp
+  실습용.vcxproj -> D:\★과제물★\3학년 1학기\School_3.1\비전프로그래밍\실습용\x64\Debug\실습용.exe
