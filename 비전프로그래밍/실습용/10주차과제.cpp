@@ -48,12 +48,11 @@ vector<Mat> load_histo(Vec3i bins, Vec3f ranges, int nImages) {
 		Mat hsv, hist, img = imread(fname, IMREAD_COLOR);
 		if (img.empty()) continue;
 
-
 		cvtColor(img, hsv, COLOR_BGR2HSV);
 		calc_Histo(hsv, hist, bins, ranges, 2);
 		DB_hists.push_back(hist);
 	}
-
+	
 	cout << format("%d개 파일 로드 및 히스토그램 계산 완료\n\n", DB_hists.size());
 	return DB_hists; // 3차원 영상
 }
@@ -126,7 +125,7 @@ Mat query_img() {
 		String fname = format("DB/img_%02d.jpg", q_no);
 		// 질의영상 읽기
 		Mat query = imread(fname, IMREAD_COLOR);
-
+		
 		if (query.empty()) cout << "질의영상 번호가 잘못되었습니다." << endl;
 		else return query; // 질의영상 반환
 	} while (1); // 질의영상 없으면 계속반복
