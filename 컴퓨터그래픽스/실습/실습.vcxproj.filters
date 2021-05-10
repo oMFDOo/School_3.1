@@ -36,5 +36,8 @@
     <ClCompile Include="7주차-자전공전.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="10주.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
