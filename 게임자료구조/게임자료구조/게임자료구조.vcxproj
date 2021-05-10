@@ -143,6 +143,7 @@
     <ClCompile Include="6주차 대면 - 목.cpp" />
     <ClCompile Include="BinarySearchTree.cpp" />
     <ClCompile Include="sort.cpp" />
+    <ClCompile Include="소스.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
