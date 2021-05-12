@@ -219,3 +219,15 @@ _NCrunch*
 1.대내외활동/전공튜터링/04.27-2회차-2.png
 1.대내외활동/전공튜터링/04.27-2회차-1.png
 1.대내외활동/전공튜터링/04.27-2회차-2.png
+임베디드시스템/processing-3.5.4-windows64.zip
+임베디드시스템/myAHRS_plus_i2c.zip
+*.jar
+임베디드시스템/processing-3.5.4/java/COPYRIGHT
+*.properties
+임베디드시스템/processing-3.5.4/java/lib/classlist
+*.cfg
+*.pf
+*.data
+임베디드시스템/processing-3.5.4/core/library/export.txt
+*.bfc
+*.ttf

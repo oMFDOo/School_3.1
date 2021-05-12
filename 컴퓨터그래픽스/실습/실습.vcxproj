@@ -146,6 +146,7 @@
     <ClCompile Include="9주차-3D큐브.cpp" />
     <ClCompile Include="7주차-자전공전.cpp" />
     <ClCompile Include="테스트용.cpp" />
+    <ClCompile Include="힝.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
