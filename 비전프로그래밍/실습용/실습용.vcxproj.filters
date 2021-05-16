@@ -39,7 +39,13 @@
     <ClCompile Include="cv_51_20193148.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="9주차과제.cpp">
+    <ClCompile Include="11주차과제-얼굴검출기.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="10주차과제-사진유사도.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="9주차과제-함수설명.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
