@@ -80,6 +80,8 @@ int main()
 	morphologyEx(th_img, dst3, MORPH_OPEN, mask);
 	morphologyEx(th_img, dst4, MORPH_CLOSE, mask);
 
+
+	imshow("Original", image);
 	imshow("User_opening", dst1), imshow("User_closing", dst2);
 	imshow("OpenCV_opening", dst3), imshow("OpenCV_closing", dst4);
 	waitKey();
