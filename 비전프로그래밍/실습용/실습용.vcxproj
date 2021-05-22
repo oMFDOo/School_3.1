@@ -153,6 +153,7 @@
     <ClCompile Include="10주차과제-사진유사도.cpp" />
     <ClCompile Include="11주차과제-얼굴검출기.cpp" />
     <ClCompile Include="12주차과제-눈입검출및성별검출.cpp" />
+    <ClCompile Include="12주차과제-모폴로지.cpp" />
     <ClCompile Include="9주차과제-함수설명.cpp" />
     <ClCompile Include="CV_20193148_32.cpp" />
     <ClCompile Include="CV_20193148_35.cpp" />

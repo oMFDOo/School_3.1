@@ -51,5 +51,8 @@
     <ClCompile Include="12주차과제-눈입검출및성별검출.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="12주차과제-모폴로지.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
