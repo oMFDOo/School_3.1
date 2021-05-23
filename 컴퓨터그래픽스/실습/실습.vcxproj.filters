@@ -42,7 +42,7 @@
     <ClCompile Include="10주차-태양계.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="소스.cpp">
+    <ClCompile Include="11주차-큐브맨.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

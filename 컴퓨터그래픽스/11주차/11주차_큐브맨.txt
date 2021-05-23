@@ -75,13 +75,13 @@ void display(void)
 	glLoadIdentity();
 	gluLookAt(x, y, z, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
 	glBegin(GL_LINES);
-	glColor3f(1.0, 0.0, 0.0); // x√‡ 
+	glColor3f(1.0, 0.0, 0.0); // xÏ∂ï 
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f(10.0, 0.0, 0.0);
-	glColor3f(0.0, 1.0, 0.0); // y√‡ 
+	glColor3f(0.0, 1.0, 0.0); // yÏ∂ï 
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f(0.0, 10.0, 0.0);
-	glColor3f(0.0, 0.0, 1.0); // z√‡ 
+	glColor3f(0.0, 0.0, 1.0); // zÏ∂ï 
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f(0.0, 0.0, 10.0);
 	glEnd();
@@ -223,7 +223,7 @@ void main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(500, 500);
-	glutCreateWindow("¿ÃæÊ»£ø¿~!");
+	glutCreateWindow("Ïù¥ÏñèÌò∏Ïò§~!");
 	init();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
