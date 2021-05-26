@@ -44,6 +44,20 @@ void RenderScene(void) {
 	glFlush();
 }
 
+void mouse1(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		// 왼쪽 버튼을 누르면 어떤 일을 수행해야 하는가?
+		playSound(1);
+
+	}
+	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
+		// 오른쪽 버튼을 누르면 어떤 일을 수행해야 하는가?
+
+
+	}
+	glutPostRedisplay();
+}
+
 void main(int argc, char** argv) {
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(width, height);
@@ -54,7 +68,7 @@ void main(int argc, char** argv) {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutDisplayFunc(RenderScene); 
 
-	//glutMouseFunc(mouse1);
+	glutMouseFunc(mouse1);
 	//glutMotionFunc(motion);
 
 	glutSpecialFunc(movingBar); // 바 그리기

@@ -57,7 +57,6 @@ void drawBackground() {
     data = LoadBmp("./image/test1.bmp", &w, &h);
 
     if (data != NULL) {
-        //glRasterPos2f(-0.5, -0.5);
         glDrawPixels(BGMaxWidth, BGMaxHeight, GL_RGB, GL_UNSIGNED_BYTE, data);
         free(data);
     }
