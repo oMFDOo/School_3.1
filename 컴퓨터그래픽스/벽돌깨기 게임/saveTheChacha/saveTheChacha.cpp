@@ -1,15 +1,18 @@
 #include <windows.h>
+#include <gl/gl.h>
 #include <glut.h>
 #include <math.h>
+#include "moveBar.h"
+#include "background.h"
 
-#define	width 			400
+#define	width 			600
 #define	height			600
 #define	PI				3.1415
 #define	polygon_num		30
 
 enum      actions { MOVE_OBJECT, ROTATE_OBJECT, ZOOM_OBJECT, DO_NONE };
 GLsizei   action;
-GLfloat	  endX = 200, endY = 100;
+GLfloat	  endX = 200, endY = 80;
 
 double ez, xAngle, yAngle, zAngle;
 
@@ -19,7 +22,7 @@ int		bottom = 0;
 int		mouse_motion = 0;
 
 float	radius = 10.0;
-float	point[1000][2];
+float	point[1000][2];	// 점찍은거
 int		point_num = 0;
 
 
@@ -36,11 +39,11 @@ typedef struct _Point {
 
 Point	circle_center, fix_center, shoot_center;
 
-
+void drawBar();
 
 void Modeling_Axis(void) {
 	fix_center.x = 200;
-	fix_center.y = 100;
+	fix_center.y = 80;
 	glLineWidth(8.0);
 	glBegin(GL_LINES);
 	glColor3f(1.0, 0.0, 0.0);
@@ -49,7 +52,7 @@ void Modeling_Axis(void) {
 	glEnd();
 }
 
-void	Modeling_Circle(Point CC) {
+void Modeling_Circle(Point CC) {
 	float	delta;
 
 	glPointSize(3.0);
@@ -61,7 +64,7 @@ void	Modeling_Circle(Point CC) {
 	glEnd();
 }
 
-void	Modeling_Points_from_Screen(void) {
+void Modeling_Points_from_Screen(void) {
 	glPointSize(5.0);
 	glColor3f(0.0, 0.0, 0.0);
 
@@ -75,6 +78,8 @@ void RenderScene(void) {
 
 	glClearColor(1.0, 1.0, 1.0, 0.0); // Set display-window color to Yellow
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	drawBackground();
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -90,6 +95,10 @@ void RenderScene(void) {
 
 	// 마우스 왼쪽 버튼 클릭을 통해 얻어진 점 생성하기
 	Modeling_Points_from_Screen();
+
+	// 바그리기
+	drawBar();
+
 	glLoadIdentity();
 	glFlush();
 }
@@ -114,11 +123,11 @@ void mouse1(int button, int state, int x, int y) {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
 		// 왼쪽 버튼을 누르면 어떤 일을 수행해야 하는가?
 		endX = 200;
-		endY = 100;
+		endY = 80;
 		circle_center.x = 200;
-		circle_center.y = 100;
+		circle_center.y = 80;
 		pos.x = 200;
-		pos.y = 100;
+		pos.y = 80;
 		Modeling_Circle(pos);
 		Modeling_Points_from_Screen();
 		RenderScene();
@@ -138,6 +147,7 @@ void  motion(int x, int y)
 {
 	// this will only be true when the left button is down
 	if (action == MOVE_OBJECT) { // update dx, dy
+		printf("%d %d\n", x, y);
 		Point pos;
 		pos.x = x;
 		pos.y = y;
@@ -156,27 +166,22 @@ void  motion(int x, int y)
 }
 
 
-// 카메라 관측 변경
-void MySpecial(int key, int x, int y) {
-	switch (key) {
-	case GLUT_KEY_LEFT:		left += 1.0; break;
-	case GLUT_KEY_RIGHT:	left -= 1.0; break;
-	case GLUT_KEY_DOWN:		bottom += 1.0; break;
-	case GLUT_KEY_UP:		bottom -= 1.0; break;
-	case GLUT_KEY_ALT_L:	ez -= 10.0; break;
-	case GLUT_KEY_CTRL_L:	ez += 10.0; break;
-	default:	break;
-	}
-}
+
+
+
 
 void main(int argc, char** argv) {
-	glutInit(&argc, argv);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(width, height);
 	glutCreateWindow("Draw Points by Mouse Input");
-	glutDisplayFunc(RenderScene);
+
+	glutDisplayFunc(RenderScene); 
+
 	glutMouseFunc(mouse1);
 	glutMotionFunc(motion);
-	glutSpecialFunc(MySpecial);
+
+
+	glutSpecialFunc(movingBar); // 바 그리기
+
 	glutMainLoop();
 }
