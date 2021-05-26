@@ -7,10 +7,11 @@
 #include "background.h"
 #include "sound.h"
 #include "moveBall.h"
+#include "block.h"
 
 #define	width 			600
 #define	height			600
-
+ 
 int		left = 0;
 int		bottom = 0;
 bool processStart = true;
@@ -29,6 +30,8 @@ void RenderScene(void) {
 
 	drawBackground();
 
+	drawBlock();
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	//관측 공간을 어떻게 설정해야 하는가?
@@ -46,6 +49,9 @@ void main(int argc, char** argv) {
 	glutInitWindowSize(width, height);
 	glutCreateWindow("Save the CHACHA");
 
+
+
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutDisplayFunc(RenderScene); 
 
 	//glutMouseFunc(mouse1);
