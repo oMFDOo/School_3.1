@@ -16,7 +16,7 @@ SND_LOOP // 반복재생 (SND_ASYNC와 같이 써야함..)
 SND_PURGE // 재생중지
 */
 
-
+// mic를 이용한 동시 소리 재생
 MCI_OPEN_PARMS openBgm;//파일을 로드
 MCI_PLAY_PARMS playBgm;//파일을 재생
 MCI_OPEN_PARMS openShuffleSound;//파일을 로드
