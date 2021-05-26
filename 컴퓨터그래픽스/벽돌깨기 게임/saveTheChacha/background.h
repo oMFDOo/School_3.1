@@ -63,5 +63,23 @@ void drawBackground() {
         free(data);
     }
 
+    // 테두리 그리기
+    /*glColor3f(0.0, 1.0, 0.0);
+    glLineWidth(4.0);
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(-300.0f, -300.0f);
+    glVertex2f(300.0f, -300.0f);
+    glVertex2f(300.0f, 300.0f);
+    glVertex2f(-300.0f, 300.0f);
+    glEnd();
+
+    glBegin(GL_LINES);
+    glVertex2f(100, 300.0);
+    glVertex2f(100, 0);
+    glVertex2f(100, 0);
+    glVertex2f(100, -300.0);
+    glEnd();*/
+
+
     glFlush();
 }
