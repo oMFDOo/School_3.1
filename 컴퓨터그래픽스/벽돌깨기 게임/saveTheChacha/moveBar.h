@@ -13,6 +13,13 @@ float BarX = (BarMaxWidth) / 2 - (BarWidth / 2);
 void RenderScene();
 void drawBar();
 void movingBar(int key, int x, int y);
+Point getBarPosition();
+SIZE getBarSize();
+
+typedef struct _Point {
+    float	x;
+    float	y;
+} Point;
 
 void drawBar() {
     glColor3f(0.3, 0.3, 0.3);
@@ -25,7 +32,7 @@ void drawBar() {
     glFinish();
 }
 
-//glutSpecialFunc(special);
+//glutSpecialFunc(movingBar);
 void movingBar(int key, int x, int y) {
     if (key == GLUT_KEY_RIGHT) {
         if((BarMaxWidth - BarWidth) >= (BarX + BarSpeed)) BarX += BarSpeed;
@@ -35,6 +42,20 @@ void movingBar(int key, int x, int y) {
     }
     RenderScene();
 }
+
+Point getBarPosition() {
+    Point pos;
+    pos.x = BarX;
+    pos.y = BarY;
+    return pos;
+}
+
+SIZE getBarSize() {
+    SIZE s;
+    s.cx = BarMaxWidth;
+    s.cy = BarMaxHeight;
+}
+
 
 
 

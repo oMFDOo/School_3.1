@@ -11,6 +11,9 @@ typedef struct _Point {
 	float	y;
 } Point;
 
+Point ballCenter;
+
+
 void Modeling_Circle(Point CC) {
 	float	delta;
 
@@ -21,4 +24,9 @@ void Modeling_Circle(Point CC) {
 	for (int i = 0; i < polygon_num; i++)
 		glVertex2f(CC.x + ballRadius * cos(delta * i), CC.y + ballRadius * sin(delta * i));
 	glEnd();
+}
+
+
+void collisionBar(Point pos, SIZE s) {
+	
 }
