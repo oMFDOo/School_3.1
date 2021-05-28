@@ -13,13 +13,9 @@ float BarX = (BarMaxWidth) / 2 - (BarWidth / 2);
 void RenderScene();
 void drawBar();
 void movingBar(int key, int x, int y);
-Point getBarPosition();
+POINT getBarPosition();
 SIZE getBarSize();
 
-typedef struct _Point {
-    float	x;
-    float	y;
-} Point;
 
 void drawBar() {
     glColor3f(0.3, 0.3, 0.3);
@@ -43,8 +39,8 @@ void movingBar(int key, int x, int y) {
     RenderScene();
 }
 
-Point getBarPosition() {
-    Point pos;
+POINT getBarPosition() {
+    POINT pos;
     pos.x = BarX;
     pos.y = BarY;
     return pos;
@@ -52,8 +48,9 @@ Point getBarPosition() {
 
 SIZE getBarSize() {
     SIZE s;
-    s.cx = BarMaxWidth;
-    s.cy = BarMaxHeight;
+    s.cx = BarWidth;
+    s.cy = BarHeight;
+    return s;
 }
 
 

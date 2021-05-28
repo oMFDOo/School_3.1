@@ -16,12 +16,19 @@ int		left = 0;
 int		bottom = 0;
 bool processStart = true;
 
-Point	circle_center, fix_center, shoot_center;
+void MyReshape(int w, int h) {
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(left, left + width, bottom, bottom + height); // mouse2()
+}
+
 
 void RenderScene(void) {
 
 	if (processStart) {
 		playSound(0);
+		ballSet();
 		processStart = false;
 	}
 
@@ -40,6 +47,19 @@ void RenderScene(void) {
 	// 바그리기
 	drawBar();
 
+	// 충돌처리
+	collisionBar(getBarPosition(), getBarSize());
+	collisionWindow();
+
+	// 공이동
+	ballCenter.x += velocity.x;
+	ballCenter.y += velocity.y;
+
+
+	// 공그리기
+	Modeling_Circle(ballCenter);
+
+	//glutSwapBuffers();
 	glLoadIdentity();
 	glFlush();
 }
@@ -64,14 +84,20 @@ void main(int argc, char** argv) {
 	glutCreateWindow("Save the CHACHA");
 
 
-
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+
+
+	glutReshapeFunc(MyReshape);
 	glutDisplayFunc(RenderScene); 
+	glutIdleFunc(RenderScene);
 
 	glutMouseFunc(mouse1);
 	//glutMotionFunc(motion);
 
 	glutSpecialFunc(movingBar); // 바 그리기
+
+
+
 
 	glutMainLoop();
 }
