@@ -10,7 +10,7 @@
 #define blockHeight				60
 
 int* map = NULL;
-POINT blockCollision[8][10];
+POINT blockCollision[8][10][4];
 
 void drawBlock(int mapNum) {
 	int cnt = 0;
@@ -35,10 +35,20 @@ void drawBlock(int mapNum) {
 			}
 
 			if (map[index] > 0) {
+				blockCollision[y][x][0].x = -1.0 + (0.5 * x) * 0.33;
+				blockCollision[y][x][0].y = 1.0 - (0.1 * y);
+				blockCollision[y][x][1].x = -1.0 + (0.5 * x) * 0.33;
+				blockCollision[y][x][1].y = 1.0 - (0.1 * (y + 1));
+				blockCollision[y][x][2].x = -1.0 + (0.5 * (x + 1)) * 0.33;
+				blockCollision[y][x][2].y = 1.0 - (0.1 * (y + 1));
+				blockCollision[y][x][3].x = -1.0 + (0.5 * (x + 1)) * 0.33;
+				blockCollision[y][x][3].y = 1.0 - (0.1 * y);
+
 				glVertex2f(-1.0 + (0.5 * x) * 0.33, (1.0 - (0.1 * y)));
 				glVertex2f(-1.0 + (0.5 * x) * 0.33, (1.0 - (0.1 * (y + 1))));
 				glVertex2f(-1.0 + (0.5 * (x + 1)) * 0.33, (1.0 - (0.1 * (y + 1))));
 				glVertex2f(-1.0 + (0.5 * (x + 1)) * 0.33, (1.0 - (0.1 * y)));
+
 			}
 
 			index++;
