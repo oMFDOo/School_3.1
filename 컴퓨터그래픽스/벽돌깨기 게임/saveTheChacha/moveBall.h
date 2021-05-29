@@ -97,7 +97,17 @@ void collisionWindow() {
 void collisionBlock(int* map, POINT blockCollision[8][10][4]) {
 	for (int i = 0; i < 10; i++) {
 		for (int k = 0; k < 8; k++) {
-			
+			if (blockCollision[i][k][0].x == 777) {
+				continue;
+			}
+			// ¿ÞÂÊ
+			if () {
+				ballCenter;
+			}
+			blockCollision[i][k][0].x; blockCollision[i][k][0].y; 
+			blockCollision[i][k][1].x; blockCollision[i][k][1].y; 
+			blockCollision[i][k][2].x; blockCollision[i][k][2].y; 
+			blockCollision[i][k][3].x; blockCollision[i][k][3].y; 
 		}
 	}
 }
