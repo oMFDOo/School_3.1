@@ -26,9 +26,9 @@ void Modeling_Circle(POINT CC) {
 }
 
 void ballSet() {
-	ballCenter.x = 200;
-	ballCenter.y = 50 + BarHeight + ballRadius;
-
+	POINT pos = getBarPosition();
+	ballCenter.x = pos.x + (BarWidth / 2);
+	ballCenter.y = 55 + BarHeight + ballRadius;
 	velocity.x = 1;
 	velocity.y = 1;
 }
@@ -40,7 +40,6 @@ void collisionBar(POINT pos, SIZE s) {
 		ballCenter.y >= pos.y ) {
 		printf("왼\n");
 		velocity.x *= -1;
-		velocity.y *= -1;
 	}
 	// 오른쪽
 	if (ballCenter.x - ballRadius == pos.x + BarWidth &&
@@ -48,7 +47,6 @@ void collisionBar(POINT pos, SIZE s) {
 		ballCenter.y >= pos.y) {
 		printf("오른\n");
 		velocity.x *= -1;
-		velocity.y *= -1;
 	}
 	// 위
 	if (ballCenter.y - ballRadius == pos.y + BarHeight &&
@@ -64,6 +62,16 @@ void collisionBar(POINT pos, SIZE s) {
 		printf("아래\n");
 		velocity.y *= -1;
 	}
+	// 모서리
+	if ((ballCenter.x + ballRadius == pos.x && ballCenter.y - ballRadius == s.cy + BarHeight) ||
+		(ballCenter.x + ballRadius == pos.x && ballCenter.y + ballRadius == s.cy) ||
+		(ballCenter.x + ballRadius == pos.x + BarWidth&& ballCenter.y - ballRadius == s.cy + BarHeight) ||
+		(ballCenter.x + ballRadius == pos.x + BarWidth && ballCenter.y + ballRadius == s.cy) ) {
+		printf("모서리\n");
+		velocity.x *= -1;
+		velocity.y *= -1;
+	}
+
 }
 
 void collisionWindow() {
@@ -81,7 +89,7 @@ void collisionWindow() {
 	}
 	// 아래쪽 충돌
 	if (ballCenter.y - ballRadius <= 0) {
-		velocity.y *= -1;
+		ballSet();
 		// 점수 깎기, 리셋
 	}
 }

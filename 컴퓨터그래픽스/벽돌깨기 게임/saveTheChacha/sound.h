@@ -58,6 +58,7 @@ void playSound(int track) {
 		// 게임시작
 	case 0:
 		playingBgm();
+		playingShuffleSound(TEXT("./sound/help.wav"));
 		break;
 		// 차차탈출
 	case 1:

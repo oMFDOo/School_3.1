@@ -25,11 +25,8 @@ void MyReshape(int w, int h) {
 
 
 void RenderScene(void) {
-
 	if (processStart) {
-		playSound(0);
 		ballSet();
-		processStart = false;
 	}
 
 	glClearColor(1.0, 1.0, 1.0, 0.0);
@@ -62,6 +59,13 @@ void RenderScene(void) {
 	//glutSwapBuffers();
 	glLoadIdentity();
 	glFlush();
+
+
+	if (processStart) {
+		playSound(0);
+		ballSet();
+		processStart = false;
+	}
 }
 
 void mouse1(int button, int state, int x, int y) {

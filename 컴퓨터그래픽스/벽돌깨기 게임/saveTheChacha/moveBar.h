@@ -6,7 +6,7 @@
 #define	BarMaxWidth 	400
 #define	BarMaxHeight	600
 #define BarY            50
-#define BarSpeed        9.0
+#define BarSpeed        9
 
 float BarX = (BarMaxWidth) / 2 - (BarWidth / 2);
 
