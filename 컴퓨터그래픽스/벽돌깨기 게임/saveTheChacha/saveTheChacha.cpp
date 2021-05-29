@@ -34,7 +34,7 @@ void RenderScene(void) {
 
 	drawBackground();
 
-	drawBlock();
+	drawBlock(1);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -64,6 +64,7 @@ void RenderScene(void) {
 	if (processStart) {
 		playSound(0);
 		ballSet();
+		readMap(1);
 		processStart = false;
 	}
 }

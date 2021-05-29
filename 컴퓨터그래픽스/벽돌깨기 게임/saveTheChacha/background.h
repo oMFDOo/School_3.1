@@ -6,6 +6,7 @@
 #define	BGMaxWidth 	400
 #define	BGMaxHeight	600
 
+
 GLubyte* LoadBmp(const char* Path, int* Width, int* Height) {
 
     HANDLE hFile;
@@ -47,7 +48,6 @@ GLubyte* LoadBmp(const char* Path, int* Width, int* Height) {
     free(fh);
     return pRaster;
 }
-
 
 
 void drawBackground() {

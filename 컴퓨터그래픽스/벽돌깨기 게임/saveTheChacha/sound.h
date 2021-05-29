@@ -79,7 +79,5 @@ void playSound(int track) {
 	case 6:
 		playingShuffleSound(TEXT("./sound/huu.wav"));
 		break;
-
 	}
-
 }

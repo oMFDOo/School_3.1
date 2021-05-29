@@ -18,7 +18,7 @@ void Modeling_Circle(POINT CC) {
 	glPointSize(3.0);
 	delta = 2 * PI / polygon_num;
 
-	glColor3f(0.6, 0.2, 0.3);
+	glColor3f(1.0, 0.0, 0.3);
 	glBegin(GL_POLYGON);
 	for (int i = 0; i < polygon_num; i++)
 		glVertex2f(CC.x + ballRadius * cos(delta * i), CC.y + ballRadius * sin(delta * i));
