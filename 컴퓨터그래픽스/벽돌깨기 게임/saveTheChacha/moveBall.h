@@ -93,3 +93,13 @@ void collisionWindow() {
 		// 점수 깎기, 리셋
 	}
 }
+
+void collisionBlock(int* map, POINT blockCollision[8][10][4]) {
+	for (int i = 0; i < 10; i++) {
+		for (int k = 0; k < 8; k++) {
+			for () {
+
+			}
+		}
+	}
+}

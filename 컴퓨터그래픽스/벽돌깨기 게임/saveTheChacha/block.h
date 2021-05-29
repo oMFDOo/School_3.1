@@ -10,7 +10,7 @@
 #define blockHeight				60
 
 int* map = NULL;
-POINT blockCollision[8][10][4];
+POINT blockCollision[10][8][4];
 
 void drawBlock(int mapNum) {
 	int cnt = 0;
