@@ -101,9 +101,9 @@ void collisionBlock(int* map, POINT blockCollision[8][10][4]) {
 				continue;
 			}
 			// ¿ÞÂÊ
-			if () {
+			/*if () {
 				ballCenter;
-			}
+			}*/
 			blockCollision[i][k][0].x; blockCollision[i][k][0].y; 
 			blockCollision[i][k][1].x; blockCollision[i][k][1].y; 
 			blockCollision[i][k][2].x; blockCollision[i][k][2].y; 

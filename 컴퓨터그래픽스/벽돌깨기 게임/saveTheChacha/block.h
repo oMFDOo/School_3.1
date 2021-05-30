@@ -50,6 +50,16 @@ void drawBlock(int mapNum) {
 				glVertex2f(-1.0 + (0.5 * (x + 1)) * 0.33, (1.0 - (0.1 * y)));		// ¿ì»ó´Ü
 
 			}
+			else {
+				blockCollision[y][x][0].x = 777;
+				blockCollision[y][x][0].y = 777;
+				blockCollision[y][x][1].x = 777;
+				blockCollision[y][x][1].y = 777;
+				blockCollision[y][x][2].x = 777;
+				blockCollision[y][x][2].y = 777;
+				blockCollision[y][x][3].x = 777;
+				blockCollision[y][x][3].y = 777;
+			}
 
 			index++;
 			glEnd();
