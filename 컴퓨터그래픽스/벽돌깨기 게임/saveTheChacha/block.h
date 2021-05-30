@@ -51,15 +51,15 @@ void drawBlock(int mapNum) {
 	glColor3f(0.5, 0.3, 0.8);
 	glLineWidth(12.0);
 	glBegin(GL_LINE_LOOP);
-	glVertex2f(-1, -1);
-	glVertex2f(1, -1);
-	glVertex2f(1, 1);
-	glVertex2f(-1, 1);
+	glVertex2f(0, 0);
+	glVertex2f(0, 600);
+	glVertex2f(600, 600);
+	glVertex2f(600, 0);
 	glEnd();
 
 	glLineWidth(6.0);
 	glBegin(GL_LINES);
-	glVertex2f(0.33, -1.0);
-	glVertex2f(0.33, 1.0);
+	glVertex2f(400, 600);
+	glVertex2f(400, 0);
 	glEnd();
 }

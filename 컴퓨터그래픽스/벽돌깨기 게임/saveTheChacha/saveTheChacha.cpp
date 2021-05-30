@@ -15,19 +15,22 @@
 int		left = 0;
 int		bottom = 0;
 bool processStart = true;
-
-void MyReshape(int w, int h) {
-	glViewport(0, 0, w, h);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(left, left + width, bottom, bottom + height); // mouse2()
-}
+//
+//void MyReshape(int w, int h) {
+//	glViewport(0, 0, w, h);
+//	glMatrixMode(GL_PROJECTION);
+//	glLoadIdentity();
+//	gluOrtho2D(left, left + width, bottom, bottom + height); // mouse2()
+//}
 
 
 void RenderScene(void) {
 	if (processStart) {
 		ballSet();
 	}
+	glLoadIdentity();
+	//관측 공간을 어떻게 설정해야 하는가?
+	gluOrtho2D(0, 0 + width, 0, 0 + height);
 
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -38,9 +41,7 @@ void RenderScene(void) {
 	drawBlock(1);
 
 
-	glLoadIdentity();
-	//관측 공간을 어떻게 설정해야 하는가?
-	gluOrtho2D(left, left + width, bottom, bottom + height);
+	
 
 	// 바그리기
 	drawBar();
@@ -85,13 +86,13 @@ void mouse1(int button, int state, int x, int y) {
 	}
 	glutPostRedisplay();
 }
-
-void reshape(int w, int h) {
-	glViewport(0, 0, w, h);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluOrtho2D(left, left + width, bottom, bottom + height); // mouse2()
-}
+//
+//void reshape(int w, int h) {
+//	glViewport(0, 0, w, h);
+//	glMatrixMode(GL_MODELVIEW);
+//	glLoadIdentity();
+//	gluOrtho2D(left, left + width, bottom, bottom + height); // mouse2()
+//}
 
 int main(int argc, char** argv) {
 	glutInitWindowPosition(100, 100);
