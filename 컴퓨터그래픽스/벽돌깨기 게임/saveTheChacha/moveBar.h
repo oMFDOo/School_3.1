@@ -25,7 +25,6 @@ void drawBar() {
     glVertex2f(BarX + BarWidth, BarY + BarHeight);
     glVertex2f(BarX + BarWidth, BarY);
     glEnd();
-    glFinish();
 }
 
 //glutSpecialFunc(movingBar);
@@ -36,7 +35,8 @@ void movingBar(int key, int x, int y) {
     else if (key == GLUT_KEY_LEFT) {
         if (0 <= (BarX - BarSpeed)) BarX -= BarSpeed;
     }
-    RenderScene();
+
+    glutPostRedisplay();
 }
 
 POINT getBarPosition() {

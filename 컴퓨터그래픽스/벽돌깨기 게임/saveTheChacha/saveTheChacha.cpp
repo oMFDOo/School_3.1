@@ -33,10 +33,11 @@ void RenderScene(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	drawBackground();
+	
 
 	drawBlock(1);
 
-	glMatrixMode(GL_PROJECTION);
+
 	glLoadIdentity();
 	//관측 공간을 어떻게 설정해야 하는가?
 	gluOrtho2D(left, left + width, bottom, bottom + height);
@@ -57,7 +58,10 @@ void RenderScene(void) {
 	// 공그리기
 	Modeling_Circle(ballCenter);
 
+	
+
 	//glutSwapBuffers();
+	//glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glFlush();
 
@@ -78,8 +82,6 @@ void mouse1(int button, int state, int x, int y) {
 	}
 	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
 		// 오른쪽 버튼을 누르면 어떤 일을 수행해야 하는가?
-
-
 	}
 	glutPostRedisplay();
 }
@@ -91,15 +93,20 @@ void reshape(int w, int h) {
 	gluOrtho2D(left, left + width, bottom, bottom + height); // mouse2()
 }
 
-void main(int argc, char** argv) {
+int main(int argc, char** argv) {
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(width, height);
 	glutCreateWindow("Save the CHACHA");
 
+	glViewport(0, 0, width, height);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluOrtho2D(left, left + width, bottom, bottom + height); // mouse2()
+
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
 
-	glutReshapeFunc(reshape);
+	//glutReshapeFunc(reshape);
 
 	glutDisplayFunc(RenderScene); 
 	glutIdleFunc(RenderScene);
@@ -109,9 +116,6 @@ void main(int argc, char** argv) {
 	
 
 	glutSpecialFunc(movingBar); // 바 그리기
-
-
-
 
 	glutMainLoop();
 }
