@@ -57,27 +57,27 @@ void playSound(int track) {
 	switch (track) {
 		// 게임시작
 	case 0:
-		playingBgm();
-		playingShuffleSound(TEXT("./sound/help.wav"));
+		//playingBgm();
+		//playingShuffleSound(TEXT("./sound/help.wav"));
 		break;
 		// 차차탈출
 	case 1:
-		playingShuffleSound(TEXT("./sound/freedom.wav"));
+		//playingShuffleSound(TEXT("./sound/freedom.wav"));
 		break;
 	case 2:
-		playingShuffleSound(TEXT("./sound/inBlock.wav"));
+		//playingShuffleSound(TEXT("./sound/inBlock.wav"));
 		break;
 	case 3:
-		playingShuffleSound(TEXT("./sound/thanks1.wav"));
+		//playingShuffleSound(TEXT("./sound/thanks1.wav"));
 		break;
 	case 4:
-		playingShuffleSound(TEXT("./sound/thanks2.wav"));
+		//playingShuffleSound(TEXT("./sound/thanks2.wav"));
 		break;
 	case 5:
-		playingShuffleSound(TEXT("./sound/workOut.wav"));
+		//playingShuffleSound(TEXT("./sound/workOut.wav"));
 		break;
 	case 6:
-		playingShuffleSound(TEXT("./sound/huu.wav"));
+		//playingShuffleSound(TEXT("./sound/huu.wav"));
 		break;
 	}
 }

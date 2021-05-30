@@ -3,14 +3,15 @@
 #include <stdlib.h>
 #include <time.h>
 #include "map.h"
+#include "ballTpye.h"
 
 #define	blockBoxWidth 			400
 #define	blockBoxHeigth			600
 #define blockWidth				50
-#define blockHeight				60
+#define blockHeight				40
 
 int* map = NULL;
-POINT blockCollision[10][8][4];
+
 
 void drawBlock(int mapNum) {
 	int cnt = 0;
@@ -28,41 +29,27 @@ void drawBlock(int mapNum) {
 	for (int y = 0; y < 10; y++) {
 		for (int x = 0; x < 8 ; x++) {
 			glColor3f((rand() % 10) / 10.0, (rand() % 10) / 10.0, (rand() % 10) / 10.0);
-			glBegin(GL_POLYGON);
-
-			if (map[index] == 1) {
-				glColor3f(1.0, 0.3, 0.6);
-			}
 
 			if (map[index] > 0) {
-				blockCollision[y][x][0].x = -1.0 + (0.5 * x) * 0.33;
-				blockCollision[y][x][0].y = 1.0 - (0.1 * y);
-				blockCollision[y][x][1].x = -1.0 + (0.5 * x) * 0.33;
-				blockCollision[y][x][1].y = 1.0 - (0.1 * (y + 1));
-				blockCollision[y][x][2].x = -1.0 + (0.5 * (x + 1)) * 0.33;
-				blockCollision[y][x][2].y = 1.0 - (0.1 * (y + 1));
-				blockCollision[y][x][3].x = -1.0 + (0.5 * (x + 1)) * 0.33;
-				blockCollision[y][x][3].y = 1.0 - (0.1 * y);
+				glBegin(GL_POLYGON);
 
-				glVertex2f(-1.0 + (0.5 * x) * 0.33, (1.0 - (0.1 * y)));				// 좌상단
-				glVertex2f(-1.0 + (0.5 * x) * 0.33, (1.0 - (0.1 * (y + 1))));		// 좌하단
-				glVertex2f(-1.0 + (0.5 * (x + 1)) * 0.33, (1.0 - (0.1 * (y + 1))));	// 우하단
-				glVertex2f(-1.0 + (0.5 * (x + 1)) * 0.33, (1.0 - (0.1 * y)));		// 우상단
+				if (map[index] == 1) {
+					glColor3f(1.0, 0.3, 0.6);
+				}
+				printf("%d %d %d %d\n", x * blockWidth, blockBoxHeigth - y * blockHeight, (x + 1) * blockWidth, blockBoxHeigth - (y + 1) * blockHeight);
+				glVertex2i(x * blockWidth, blockBoxHeigth - y * blockHeight);				// 좌상단
+				glVertex2i(x * blockWidth, blockBoxHeigth - (y + 1) * blockHeight);			// 좌하단
+				glVertex2i((x + 1) * blockWidth, blockBoxHeigth - (y + 1) * blockHeight);	// 우하단
+				glVertex2i((x + 1) * blockWidth, blockBoxHeigth - y * blockHeight);			// 우상단
+				glEnd();
 
-			}
-			else {
-				blockCollision[y][x][0].x = 777;
-				blockCollision[y][x][0].y = 777;
-				blockCollision[y][x][1].x = 777;
-				blockCollision[y][x][1].y = 777;
-				blockCollision[y][x][2].x = 777;
-				blockCollision[y][x][2].y = 777;
-				blockCollision[y][x][3].x = 777;
-				blockCollision[y][x][3].y = 777;
+				//glVertex2f(-1.0 + (0.5 * x) * 0.33, (1.0 - (0.1 * y)));				// 좌상단
+				//glVertex2f(-1.0 + (0.5 * x) * 0.33, (1.0 - (0.1 * (y + 1))));		// 좌하단
+				//glVertex2f(-1.0 + (0.5 * (x + 1)) * 0.33, (1.0 - (0.1 * (y + 1))));	// 우하단
+				//glVertex2f(-1.0 + (0.5 * (x + 1)) * 0.33, (1.0 - (0.1 * y)));		// 우상단
 			}
 
 			index++;
-			glEnd();
 		}
 		cnt++;
 	}

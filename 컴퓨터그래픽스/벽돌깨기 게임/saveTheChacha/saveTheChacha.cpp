@@ -47,6 +47,7 @@ void RenderScene(void) {
 	// 충돌처리
 	collisionBar(getBarPosition(), getBarSize());
 	collisionWindow();
+	collisionBlock(map);
 
 	// 공이동
 	ballCenter.x += velocity.x;
@@ -84,8 +85,8 @@ void mouse1(int button, int state, int x, int y) {
 }
 
 void main(int argc, char** argv) {
-	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(width, height);
+	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Save the CHACHA");
 
 
