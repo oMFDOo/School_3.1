@@ -19,7 +19,7 @@ SIZE getBarSize();
 
 void drawBar() {
     glColor3f(0.3, 0.3, 0.3);
-    glBegin(GL_QUADS);
+    glBegin(GL_POLYGON);
     glVertex2f(BarX, BarY);
     glVertex2f(BarX, BarY + BarHeight);
     glVertex2f(BarX + BarWidth, BarY + BarHeight);

@@ -18,11 +18,6 @@ void drawBlock(int mapNum) {
 
 	map = readMap(mapNum);
 
-	for (int i = 0; map[i] != NULL; i++) {
-		if (i % 5 == 0) printf("\n");
-		printf("%d", map[i]);
-	}
-
 	srand(time(NULL));
 
 	int index = 0;
@@ -33,10 +28,9 @@ void drawBlock(int mapNum) {
 			if (map[index] > 0) {
 				glBegin(GL_POLYGON);
 
-				if (map[index] == 1) {
-					glColor3f(1.0, 0.3, 0.6);
-				}
-				printf("%d %d %d %d\n", x * blockWidth, blockBoxHeigth - y * blockHeight, (x + 1) * blockWidth, blockBoxHeigth - (y + 1) * blockHeight);
+				glColor3f(1.0, 0.3, 0.6);
+
+				//printf("%d %d %d %d\n", x * blockWidth, blockBoxHeigth - y * blockHeight, (x + 1) * blockWidth, blockBoxHeigth - (y + 1) * blockHeight);
 				glVertex2i(x * blockWidth, blockBoxHeigth - y * blockHeight);				// ÁÂ»ó´Ü
 				glVertex2i(x * blockWidth, blockBoxHeigth - (y + 1) * blockHeight);			// ÁÂÇÏ´Ü
 				glVertex2i((x + 1) * blockWidth, blockBoxHeigth - (y + 1) * blockHeight);	// ¿ìÇÏ´Ü

@@ -84,21 +84,29 @@ void mouse1(int button, int state, int x, int y) {
 	glutPostRedisplay();
 }
 
-void main(int argc, char** argv) {
-	glutInitWindowSize(width, height);
-	glutInitWindowPosition(0, 0);
-	glutCreateWindow("Save the CHACHA");
+void reshape(int w, int h) {
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluOrtho2D(left, left + width, bottom, bottom + height); // mouse2()
+}
 
+void main(int argc, char** argv) {
+	glutInitWindowPosition(100, 100);
+	glutInitWindowSize(width, height);
+	glutCreateWindow("Save the CHACHA");
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
 
-	glutReshapeFunc(MyReshape);
+	glutReshapeFunc(reshape);
+
 	glutDisplayFunc(RenderScene); 
 	glutIdleFunc(RenderScene);
 
 	glutMouseFunc(mouse1);
 	//glutMotionFunc(motion);
+	
 
 	glutSpecialFunc(movingBar); // 바 그리기
 
