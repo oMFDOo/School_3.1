@@ -24,7 +24,6 @@ MCI_OPEN_PARMS openShuffleSound;//파일을 로드
 MCI_PLAY_PARMS playShuffleSound;//파일을 재생
 
 #define BGM "./sound/banana.wav" //BGM 경로 지정
-#define SHUFFLE "C:\\shuffle.mp3" //효과음 경로 지정
 
 int dwID;
 void playingBgm() {
