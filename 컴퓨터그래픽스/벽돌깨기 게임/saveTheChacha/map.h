@@ -10,10 +10,10 @@ int* readMap(int mapNum) {
     FILE* fp = NULL;
 
     if (mapNum == 1) fopen_s(&fp, "./map/baby.txt", "r");
-    else if (mapNum == 5) { fopen_s(&fp, "./map/heart.txt", "r");   gameScore.setChacha(2);}
+    else if (mapNum == 2) { fopen_s(&fp, "./map/heart.txt", "r");   gameScore.setChacha(2);}
     else if (mapNum == 3) { fopen_s(&fp, "./map/x.txt", "r");       gameScore.setChacha(4);}
     else if (mapNum == 4) { fopen_s(&fp, "./map/zigzag.txt", "r");  gameScore.setChacha(6);}
-    else if (mapNum == 2) { fopen_s(&fp, "./map/candy.txt", "r");   gameScore.setChacha(16);}
+    else if (mapNum == 5) { fopen_s(&fp, "./map/candy.txt", "r");   gameScore.setChacha(16);}
     else if (mapNum == 6) { fopen_s(&fp, "./map/good.txt", "r");    gameScore.setChacha(777);}
     else { fopen_s(&fp, "./map/good.txt", "r"); }
 

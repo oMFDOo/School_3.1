@@ -36,6 +36,12 @@ void printScore() {
     char f[10];
     _itoa_s(gameScore.setLife(0), f, 10);
     textOutput(450, 280, 0.2, 0.2, 0.2, f);
+
+    char g[] = "level";
+    textOutput(450, 200, 0.2, 0.2, 0.2, g);
+    char h[10];
+    _itoa_s(gameScore.setLevel(0), h, 10);
+    textOutput(450, 180, 0.2, 0.2, 0.2, h);
 }
 
 //
