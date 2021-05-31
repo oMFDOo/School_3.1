@@ -6,7 +6,7 @@
 int* readMap(int mapNum) {
     static int map[10][8] = { 0 };
     FILE* fp = NULL;
-    fopen_s(&fp, "./map/heart.txt", "r");
+    fopen_s(&fp, "./map/test.txt", "r");
 
 
     for (int i = 0; i < 10; i++) {

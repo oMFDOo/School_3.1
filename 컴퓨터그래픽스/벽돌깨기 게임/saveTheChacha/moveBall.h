@@ -6,7 +6,8 @@
 #define	PI				3.1415
 #define	polygon_num		30
 #define ballRadius		10
-
+#define BWidth			50
+#define BHeight			40
 
 
 POINT ballCenter, velocity;
@@ -95,16 +96,74 @@ void collisionWindow() {
 }
 
 void collisionBlock(int* map) {
-	printf("%d %d\n", ballCenter.x, ballCenter.y);
+	//printf("%d %d\n", ballCenter.x, ballCenter.y);
 	int cnt = 0;
 	for (int i = 0; i < 10; i++) {
 		for (int k = 0; k < 8; k++) {
 			if (map[cnt] == 0) {
+				cnt++;
 				continue;
 			}
 
+			printf("%d %d\n", ballCenter.x, ballCenter.y);
+			
+			if (ballCenter.x + ballRadius == BWidth * k && ballCenter.y - ballRadius == 600 - (BHeight * i)) {
+				printf("블럭 좌상단 모서리\n");
+				map[cnt] = 0;
+				velocity.x *= -1; velocity.y *= -1; return;
+			}
+			if (ballCenter.x + ballRadius == BWidth * k && ballCenter.y + ballRadius == 600 - (BHeight * i)) {
+				printf("블럭 좌하단 모서리\n");
+				map[cnt] = 0;
+				velocity.x *= -1; velocity.y *= -1; return;
+			}
+			if (ballCenter.x - ballRadius == BWidth * (k + 1) && ballCenter.y + ballRadius == 600 - (BHeight * i)) {
+				printf("블럭 우하단 모서리\n");
+				map[cnt] = 0;
+				velocity.x *= -1; velocity.y *= -1; return;
+			}
+			if (ballCenter.x - ballRadius == BWidth * (k + 1) && ballCenter.y - ballRadius == 600 - (BHeight * i)) {
+				printf("블럭 우상단 모서리\n");
+				map[cnt] = 0;
+				velocity.x *= -1; velocity.y *= -1; return;
+			}
 
+			if (ballCenter.y <= 600 - (BHeight * i) && ballCenter.y >= 600 - (BHeight * (i + 1))) {
+				// 왼쪽
+				if (ballCenter.x + ballRadius == BWidth * k) {
+					printf("블럭 왼쪽\n");
+					map[cnt] = 0;
+					Sleep(1800);
+					velocity.x *= -1; return;
+				}
+				// 오른쪽
+				if (ballCenter.x - ballRadius == BWidth * (k + 1)) {
+					printf("블럭 오른쪽\n");
+					map[cnt] = 0;
+					Sleep(1800);
+					velocity.x *= -1; return;
+				}
+			}
+			
+			if (ballCenter.x >= BWidth * k && ballCenter.x <= BWidth * (k + 1)) {
+				// 위쪽
+				if (ballCenter.y - ballRadius == 600 - (BHeight * i)) {
+					printf("블럭 위쪽\n");
+					map[cnt] = 0;
+					Sleep(1800);
+					velocity.y *= -1; return;
+				}
+				// 아래쪽
+				if (ballCenter.y + ballRadius == 600 - (BHeight * (i + 1))) {
+					printf("블럭 아래쪽\n");
+					map[cnt] = 0;
+					Sleep(1800);
+					velocity.y *= -1; return;
+				}
 
+			}
+
+			
 			cnt++;
 		}
 	}

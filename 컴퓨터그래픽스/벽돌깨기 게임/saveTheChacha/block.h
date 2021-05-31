@@ -13,19 +13,16 @@
 int* map = NULL;
 
 
-void drawBlock(int mapNum) {
-	int cnt = 0;
-
-	map = readMap(mapNum);
-
+void drawBlock(int* mapdata) {
 	srand(time(NULL));
 
+	int cnt = 0;
 	int index = 0;
 	for (int y = 0; y < 10; y++) {
 		for (int x = 0; x < 8 ; x++) {
 			glColor3f((rand() % 10) / 10.0, (rand() % 10) / 10.0, (rand() % 10) / 10.0);
 
-			if (map[index] > 0) {
+			if (mapdata[index] > 0) {
 				glBegin(GL_POLYGON);
 
 				glColor3f(1.0, 0.3, 0.6);
@@ -37,10 +34,6 @@ void drawBlock(int mapNum) {
 				glVertex2i((x + 1) * blockWidth, blockBoxHeigth - y * blockHeight);			// 우상단
 				glEnd();
 
-				//glVertex2f(-1.0 + (0.5 * x) * 0.33, (1.0 - (0.1 * y)));				// 좌상단
-				//glVertex2f(-1.0 + (0.5 * x) * 0.33, (1.0 - (0.1 * (y + 1))));		// 좌하단
-				//glVertex2f(-1.0 + (0.5 * (x + 1)) * 0.33, (1.0 - (0.1 * (y + 1))));	// 우하단
-				//glVertex2f(-1.0 + (0.5 * (x + 1)) * 0.33, (1.0 - (0.1 * y)));		// 우상단
 			}
 
 			index++;
