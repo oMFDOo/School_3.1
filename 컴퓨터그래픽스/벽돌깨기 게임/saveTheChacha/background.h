@@ -50,14 +50,20 @@ GLubyte* LoadBmp(const char* Path, int* Width, int* Height) {
 }
 
 
-void drawBackground() {
+
+void drawBackground(int num, int bw = 0, int bh = 0) {
     GLubyte* data;
-
     int w = BGMaxWidth, h = BGMaxHeight;
-    data = LoadBmp("./image/test1.bmp", &w, &h);
 
-    if (data != NULL) {
+    if (num == 1) {
+        data = LoadBmp("./image/test3.bmp", &w, &h);
         glDrawPixels(BGMaxWidth, BGMaxHeight, GL_RGB, GL_UNSIGNED_BYTE, data);
+        free(data);
+    }
+    if (num == 2) {
+        w = 51; h = 42;
+        data = LoadBmp("./image/block.bmp", &w, &h);
+        glDrawPixels(bw, bh, GL_RGB, GL_UNSIGNED_BYTE, data);
         free(data);
     }
 }

@@ -35,7 +35,6 @@ void movingBar(int key, int x, int y) {
     else if (key == GLUT_KEY_LEFT) {
         if (0 <= (BarX - BarSpeed)) BarX -= BarSpeed;
     }
-
     glutPostRedisplay();
 }
 

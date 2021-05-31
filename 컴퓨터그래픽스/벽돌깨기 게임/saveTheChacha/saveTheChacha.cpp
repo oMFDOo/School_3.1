@@ -8,30 +8,37 @@
 #include "sound.h"
 #include "moveBall.h"
 #include "block.h"
+#include "statusBox.h"
 
 #define	width 			600
 #define	height			600
  
 int		left = 0;
 int		bottom = 0;
-bool processStart = true;
+bool	processStart = true;
+bool	levelup = true;
 
 void RenderScene(void) {
 	if (processStart) {
 		ballSet();
-		map = readMap(1);
+	}
+	if (levelup) {
+		map = readMap(gameScore.setLevel(0));
+		levelup = false;
 	}
 	glLoadIdentity();
 	//관측 공간을 어떻게 설정해야 하는가?
 	gluOrtho2D(0, 0 + width, 0, 0 + height);
 
-	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glClearColor(0.9, 0.9, 1.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	drawBackground();
+	drawBackground(1);
 	
 	
 	drawBlock(map);
+
+	printScore();
 
 	// 바그리기
 	drawBar();
@@ -57,7 +64,6 @@ void RenderScene(void) {
 	if (processStart) {
 		playSound(0);
 		ballSet();
-		readMap(1);
 		processStart = false;
 	}
 }
@@ -86,13 +92,19 @@ int main(int argc, char** argv) {
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
+	if (gameScore.getChacha() == 0) {
+		if (gameScore.setLevel(0) + 1 <= 6) {
+			gameScore.setLevel(1);
+			levelup = true;
+		}
+	}
 
 	glutDisplayFunc(RenderScene); 
 	glutIdleFunc(RenderScene);
 
 	glutMouseFunc(mouse1);
 	//glutMotionFunc(motion);
-	
+
 
 	glutSpecialFunc(movingBar); // 바 그리기
 
