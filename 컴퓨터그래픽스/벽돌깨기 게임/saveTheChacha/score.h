@@ -6,7 +6,7 @@ public:
 	int setLife(int l) { life += l; return life; }
 	int setScore(int s) { score += s; return score; }
 	int setLevel(int l) { level += l; return level; };
-	Score(int l = 5, int c = 0) { life = 10; chacha = c; score = 0; level = 0; }
+	Score(int l = 5, int c = 1) { life = 20; chacha = c; score = 0; level = 1; }
 private :
 	int life;
 	int chacha;

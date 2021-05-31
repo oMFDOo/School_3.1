@@ -2,6 +2,7 @@
 #include <windows.h>
 #pragma comment(lib,"winmm.lib") 
 #include <mmsystem.h>
+#include <Digitalv.h>;
 #include <stdlib.h>
 #include <time.h>
 #include<stdio.h>
@@ -31,7 +32,7 @@ void playingBgm() {
 	openBgm.lpstrDeviceType = TEXT("mpegvideo"); //mp3 형식
 	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE, (DWORD)(LPVOID)&openBgm);
 	dwID = openBgm.wDeviceID;
-	mciSendCommand(dwID, MCI_PLAY, MCI_NOTIFY, (DWORD)(LPVOID)&openBgm); //음악 반복 재생
+	mciSendCommand(dwID, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&openBgm); //음악 반복 재생
 }
 
 void playingShuffleSound(std::wstring name) {
@@ -77,7 +78,15 @@ void playSound(int track) {
 		playingShuffleSound(TEXT("./sound/workOut.wav"));
 		break;
 	case 6:
-		playingShuffleSound(TEXT("./sound/huu.wav"));
+		playingShuffleSound(TEXT("./sound/huu.wav")); 
+		break;
+	// 게임 종료
+	case 7 :
+		playingShuffleSound(TEXT("./sound/gameOver.wav"));
+		break;
+	case 8:
+		playingShuffleSound(TEXT("./sound/gameClear.wav"));
 		break;
 	}
+
 }

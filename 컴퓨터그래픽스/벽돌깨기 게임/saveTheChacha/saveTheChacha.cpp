@@ -17,14 +17,25 @@ int		left = 0;
 int		bottom = 0;
 bool	processStart = true;
 bool	levelup = true;
+bool	printSound1 = true;
+bool	printSound2 = true;
 
 void RenderScene(void) {
-	if (processStart) {
-		ballSet();
-	}
+
+	
 	if (levelup) {
 		map = readMap(gameScore.setLevel(0));
 		levelup = false;
+		processStart = true;
+	}
+	if (gameScore.getChacha() == 0) {
+		if (gameScore.setLevel(0) + 1 <= 6) {
+			gameScore.setLevel(1);
+			levelup = true;
+		}
+	}
+	if (processStart) {
+		ballSet();
 	}
 	glLoadIdentity();
 	//관측 공간을 어떻게 설정해야 하는가?
@@ -47,6 +58,17 @@ void RenderScene(void) {
 	collisionBar(getBarPosition(), getBarSize());
 	collisionWindow();
 	collisionBlock(map);
+
+	// 게임오버
+	if (gameScore.setLife(0) == 0 && printSound1 == true) {
+		playSound(7);
+		printSound1 = false;
+	}
+	// 게임클리어
+	if (gameScore.setLevel(0) == 6 && gameScore.getChacha() == 0 && printSound2 == true) {
+		playSound(8);
+		printSound2 = false;
+	}
 
 	// 공이동
 	ballCenter.x += velocity.x;
@@ -92,12 +114,7 @@ int main(int argc, char** argv) {
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
-	if (gameScore.getChacha() == 0) {
-		if (gameScore.setLevel(0) + 1 <= 6) {
-			gameScore.setLevel(1);
-			levelup = true;
-		}
-	}
+
 
 	glutDisplayFunc(RenderScene); 
 	glutIdleFunc(RenderScene);
