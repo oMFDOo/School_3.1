@@ -2,7 +2,7 @@
 #include <windows.h>
 #pragma comment(lib,"winmm.lib") 
 #include <mmsystem.h>
-#include <Digitalv.h>;
+#include <Digitalv.h>
 #include <stdlib.h>
 #include <time.h>
 #include<stdio.h>
