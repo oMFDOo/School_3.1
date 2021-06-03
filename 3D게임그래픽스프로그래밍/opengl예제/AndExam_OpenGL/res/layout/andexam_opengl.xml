@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#0000ff"
+    >
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dip"
+    >
+<Button
+	android:id="@+id/btnprev"  
+	android:layout_width="0px"
+	android:layout_weight="1" 
+	android:layout_height="wrap_content" 
+	android:onClick="mOnClick"
+	android:text="앞장"
+	/>
+<Spinner
+	android:id="@+id/spinnerchapter"
+	android:layout_width="0px"
+	android:layout_weight="3" 
+    android:layout_height="wrap_content"
+    />
+<Button
+	android:id="@+id/btnnext"  
+	android:layout_width="0px"
+	android:layout_weight="1" 
+	android:layout_height="wrap_content" 
+	android:onClick="mOnClick"
+	android:text="뒷장"
+	/>
+</LinearLayout>
+<ListView 
+    android:id="@+id/examlist" 
+    android:layout_width="fill_parent"
+	android:layout_height="fill_parent" 
+    android:layout_marginLeft="4dip"
+    android:layout_marginRight="4dip"
+    android:layout_marginBottom="4dip"
+    android:background="#e0e0e0"
+	/>
+</LinearLayout>
