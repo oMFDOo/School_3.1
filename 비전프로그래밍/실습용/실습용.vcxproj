@@ -163,7 +163,7 @@
     <ClCompile Include="cv_62_20193148.cpp" />
     <ClCompile Include="cv_63_20193148.cpp" />
     <ClCompile Include="cv_51_20193148.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="14주차과제-차량번호인식.cpp" />
     <ClCompile Include="소스1.cpp" />
   </ItemGroup>
   <ItemGroup>
