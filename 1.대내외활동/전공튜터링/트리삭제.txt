@@ -1,0 +1,51 @@
+bool bst::Delete(int el) {
+    node * ptr = Search(root_, el);
+    // 삭제할 노드가 존재하지 않는 경우
+    if (ptr==0) return false;
+
+    // 삭제될 노드가 왼쪽 노드인 경우 : 나보다 부모값이 크다
+    if (ptr->p_->d_>ptr->d_) 
+        // 삭제될 노드에 새로운 값 할당
+        ptr->p_->l_ = DeleteByMerging(ptr);
+
+    // 삭제될 노드가 오른쪽 노드인 경우 : 나보다 부모값이 작다
+    else
+        // 삭제될 노드에 새로운 값 할당
+        ptr->p_->r_ = DeleteByMerging(ptr);
+
+    // 노드삭제
+    delete ptr;
+    // 삭제성공
+    return true;
+}
+
+node * bst::DeleteByMerging(node * ptr) {
+    // 노드의 자식이 다 없다.
+    if (ptr->l_==0&&ptr->r_==0) return 0;
+    // 왼쪽 자식이 없다.
+    if (ptr->l_==0) return ptr->r_;
+    // 오른쪽 자식이 없다.
+    if (ptr->r_==0) return ptr->l_;
+
+    // 왼쪽 오른쪽 자식이 모두 존재하는 경우
+
+    // 현재 노드의 왼쪽에서 제일 오른쪽 찾을거다.
+    // ptr이 삭제될 때 왼쪽값 오른쪽 값을 책임져야한다.
+    // tptr : ptr의 왼쪽값을 책임짐
+    // tptr의 제일 오른쪽 : ptr의 오른쪽 값을 책임짐
+    // tptr은 삭제될 노드의 왼쪽값을 모두 할당 받았다.
+    node * tptr = ptr->l_;
+
+    // 제일 큰 값 탐색
+    while (tptr->r_!=0) tptr = tptr->r_;
+
+    // 삭제될 노드가 가진 오른쪽 값을 모두 할당 받았다.
+    // 삭제될 노드의 왼쪽값은 tptr이 모두 가졌다.
+    // 삭제될 노드이 오른쪽값은 tptr의 제일 오른쪽이 가졌다.
+    // 삭제될 노드의 값이 모두 옮겨졌다.
+    tptr->r_ = ptr->r_;
+
+    // ptr->l == tptr
+    // tptr을 반환하지 않는 이유 : 지금 제일 오른쪽 노드라서
+    return ptr->l_;
+}
