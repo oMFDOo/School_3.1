@@ -22,9 +22,9 @@ bool bst::Delete(int el) {
 node * bst::DeleteByMerging(node * ptr) {
     // 노드의 자식이 다 없다.
     if (ptr->l_==0&&ptr->r_==0) return 0;
-    // 왼쪽 자식이 없다.
+    // 왼쪽 자식이 없다. : 오른쪽 자식만 존재
     if (ptr->l_==0) return ptr->r_;
-    // 오른쪽 자식이 없다.
+    // 오른쪽 자식이 없다. : 왼쪽 자식만 존재
     if (ptr->r_==0) return ptr->l_;
 
     // 왼쪽 오른쪽 자식이 모두 존재하는 경우
