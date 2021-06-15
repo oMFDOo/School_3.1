@@ -150,6 +150,19 @@ vector<Mat> make_candidates(Mat image, vector<RotatedRect>& candidates) {
     return candidates_img;
 }
 
+int startSound();
+int digitalRead(int);
+int pullBtn1();
+int pullBtn2();
+int pullBtn3();
+int pullBtn4();
+int neckBraces();
+int waistBraces();
+int neckStretching();
+int waistStretching();
+
+#define HIGH 1
+#define LOW 1
 int main() {
     Mat  trainingData, labels;
     read_trainData("SVMDATA.xml", trainingData, labels);
@@ -180,4 +193,9 @@ int main() {
     imshow("image", image);
     waitKey();
     return 0;
+
 }
+
+
+
+
