@@ -1,0 +1,209 @@
+import processing.opengl.*;
+import processing.serial.*;
+Serial Port;
+
+int modebutton = -1; // 
+
+float[] val = new float[5];
+float rotX, rotY, rotZ, transX, transY, scaleFactor;
+float prevX, prevY, prevZ;
+
+boolean[] mode = new boolean[2]; // 초기 메뉴 버튼(1, 2번)을 누른 후 3, 4이 들어온지 확인하는 모드
+
+boolean go = false;
+boolean buttonInput = false;
+
+float rot;
+
+int x=0;
+int y=0;
+int z=0;
+
+void keyPressed() { // 뱡향키로 모델을 회전시킴
+  if (key == CODED) {
+    if (keyCode == UP) { // 위쪽 
+      y+=10;
+    } else if (keyCode == DOWN) { // 아래쪽
+      y-=10;
+    } else if (keyCode == LEFT) { // 왼쪽
+      x-=10;
+    } else if (keyCode == RIGHT) { // 오른쪽
+      x+=10;
+    }
+  }
+}
+
+void setup() {
+  String portName = Serial.list()[1];
+
+  Port = new Serial(this, portName, 9600);
+  Port.bufferUntil('\n');
+
+  rotX = rotY = rotZ = 0;
+  prevX = prevY = prevZ = 0;
+
+  size(1000, 500, P3D);
+  //size(1024, 768, P3D);
+  noStroke();
+}
+
+void draw() { // 모델링 그리는 함수
+ 
+  lights(); // 물체에 조명을 넣어 입체감을 넣는 함수
+
+  translate(width/2, height/2, 0); // 프로세싱 창의 중점을 원점으로 두고 시작
+  rotateX(radians(y)); // 키보드 값에 의해 연산된 값으로 X기준 회전
+  rotateY(radians(x)); // 키보드 값에 의해 연산된 값으로 Y기준 회전
+  background(150); // 프로세싱 화면 바탕색 명암도 150으로 설정
+
+
+
+  pushMatrix(); // 등, 하반신, 목, 얼굴모두 조절 (등 회전시 목과 머리 함께 회전하기 위해)
+   if(mode[1]){ // 4번키(등)를 누렀을때 반응
+     
+   rotateX(-(rot - 273) / 90.0); // 모델이 사용자의 등 움직임과 동일하게 움직임
+      if (go) // 올바른 자세
+      fill(125, 225, 125, 200); // 하반신, 등 초록색 변경
+    else{ // 올바르지 못한 자세
+      fill(255, 0, 0, 200); // 하반신, 등 빨간색 변경
+      
+    }
+  }
+  
+  else if(!mode[1]){ // 4번 모드(등)가 아닐 때 
+    fill(125, 125, 255, 200); // 선택되지 않은 영역이므로 곤색 출력
+  }
+
+  pushMatrix(); // 등
+  translate(0, 60, 0);
+ 
+  box(150, 180, 70); // 등 출력
+  popMatrix();
+
+
+  pushMatrix(); // 하반신
+  translate(0, 180, 0);
+
+  box(150, 40, 70); // 하반신 출력
+  popMatrix();
+
+  pushMatrix();
+  
+  if(mode[0]){ // 3번키(목)를 누렀을때 반응
+    rotateX(-(rot - 273) / 90.0); // 모델이 사용자의 목 움직임과 동일하게 움직임
+     if (go) // 올바른 자세를 취했을 경우
+      fill(125, 225, 125, 200); // 녹색으로 출력
+    else { // 올바르지 못한 자세 취할 경우
+      fill(255, 0, 0, 200); // 빨간색으로 출력
+    }
+  }
+  
+  else if(!mode[0]){ // 목메뉴가 눌러지지 않은 경우
+    fill(125, 125, 255, 200); // 선택 영역이 아니므로 곤색으로 출력
+  }
+  
+  
+  pushMatrix(); // 머리
+  translate(0, -120, 0);
+  
+  sphere(50); //머리 출력
+  popMatrix();
+
+  pushMatrix(); // 목
+  translate(0, -50, 0);
+ 
+  box(25, 35, 25); // 목출력
+  popMatrix();
+
+  popMatrix();
+  popMatrix();
+
+  pushMatrix(); // 오른팔
+  translate(95, 70, 0);
+  fill(125, 125, 255, 200); // 동기화 영역이 아니므로 곤색으로 출력
+  box(30, 160, 30); // 오른팔 출력
+  popMatrix();
+
+  pushMatrix(); // 왼팔
+  translate(-95, 70, 0);
+  fill(125, 125, 255, 200); // 동기화 영역이 아니므로 곤색으로 출력
+  box(30, 160, 30); // 왼팔 출력
+  popMatrix();
+
+  pushMatrix(); // 오른손
+  translate(100, 170, 0); // 동기화 영역이 아니므로 곤색으로 출력
+  fill(125, 125, 255, 200);
+  sphere(15); // 오른손 출력
+  popMatrix();
+
+  pushMatrix(); // 왼손
+  translate(-100, 170, 0);
+  fill(125, 125, 255, 200);  // 동기화 영역이 아니므로 곤색으로 출력
+  sphere(15); // 왼손 출력
+  popMatrix();
+}
+
+int cnt = 0;
+
+void serialEvent(Serial port) {
+  String input = port.readStringUntil('\n');
+  //println(input);
+
+  if(modebutton==0){ // 자세교정 모드에서 3번이 켜질 때 (목) - 아두이노에서 받은 값으로 판별
+    mode[0] = true; // 목 모드 제어 가능 - draw에서 제어할 부분이 목등 중 어느 부분인지 판별할 때 사용
+    mode[1] = false; // 등 모드 제어 불가능 - draw에서 제어할 부분이 목등 중 어느 부분인지 판별할 때 사용
+  }
+  else if(modebutton == 1){  // 자세교정 모드에서 4번이 켜질 때 (등) - 아두이노에서 받은 값으로 판별
+    mode[0] = false; // 목 모드 제어 불가능 - draw에서 제어할 부분이 목등 중 어느 부분인지 판별할 때 사용
+    mode[1] = true; // 등 모드 제어 가능 - draw에서 제어할 부분이 목등 중 어느 부분인지 판별할 때 사용
+  }
+
+
+  if (input.charAt(0) == 's') {
+    cnt = 0;
+  }
+  else if (input.charAt(0) == 'b') {
+    buttonInput = true;
+  }
+  else if(buttonInput == true) {
+    modebutton = input.charAt(0) - '0' - 3;
+    println(modebutton);
+    buttonInput = false;
+  }
+  else {
+    val[cnt] = float(input);
+
+    if (cnt >= 2) {
+      rotX += radians(prevX - val[1] + 360);
+      rotY += radians(prevY - val[2] + 360);
+      rotZ += radians(prevZ - val[0] + 360);
+
+      if(val[1] + 360 > 270 && val[1] + 360 < 280){ // 올바른 자세일 때
+        println("green"); // green출력
+        go = true; // 올바른 자세임을 표시
+      }
+
+      else{ // 올바른 자세가 아닐 때
+        println("red"); // red출력
+        go = false; // 올바르지 못한 자세임을 표시
+      }
+
+      println("rotX : " + (val[1] + 360));
+      println("rotY : " + (val[2] + 360));
+      println("rotZ : " + (val[0] + 360));
+      println();
+
+      rot = val[1] + 360;
+
+      prevX = val[1];
+      prevY = val[2];
+      prevZ = val[0];
+    }
+    cnt++;
+  }
+}
+
+void mouseDragged() { // 마우스로 모델 회전
+  rotY -= (mouseX - pmouseX) * 0.01;
+  rotX -= (mouseY - pmouseY) * 0.01;
+}

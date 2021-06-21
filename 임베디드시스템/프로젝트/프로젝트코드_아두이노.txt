@@ -1,0 +1,629 @@
+#include <openGLCD.h>
+#include <Wire.h>
+#include <RTClib.h>
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd (44, 45, 46, 47, 48, 49);         //LCD연결
+RTC_DS1307 RTC;
+
+#define MYAHRS_I2C_ADDRESS           0x20
+#define MYMOTION_WHO_AM_I_VALUE      0xB1
+
+// tone
+
+unsigned int frqArray[7] = {262, 294, 330, 349, 392, 440, 494};
+
+int signatures[20] = {4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2};
+
+int scale[20] = {0, 2, 4, 0, 2, 4, 5, 5, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1, 0};
+
+
+
+Image_t icon;
+
+
+
+enum {
+
+  I2C_SLAVE_REG_WHO_AM_I = 0x01,
+
+  I2C_SLAVE_REG_REV_ID_MAJOR,
+
+  I2C_SLAVE_REG_REV_ID_MINOR,
+
+  I2C_SLAVE_REG_STATUS,
+
+
+
+  // RAW DATA
+
+  I2C_SLAVE_REG_I_ACC_X_LOW = 0x10,
+
+  I2C_SLAVE_REG_I_ACC_X_HIGH,
+
+  I2C_SLAVE_REG_I_ACC_Y_LOW,
+
+  I2C_SLAVE_REG_I_ACC_Y_HIGH,
+
+  I2C_SLAVE_REG_I_ACC_Z_LOW,
+
+  I2C_SLAVE_REG_I_ACC_Z_HIGH,
+
+  I2C_SLAVE_REG_I_GYRO_X_LOW,
+
+  I2C_SLAVE_REG_I_GYRO_X_HIGH,
+
+  I2C_SLAVE_REG_I_GYRO_Y_LOW,
+
+  I2C_SLAVE_REG_I_GYRO_Y_HIGH,
+
+  I2C_SLAVE_REG_I_GYRO_Z_LOW,
+
+  I2C_SLAVE_REG_I_GYRO_Z_HIGH,
+
+  I2C_SLAVE_REG_I_MAGNET_X_LOW,
+
+  I2C_SLAVE_REG_I_MAGNET_X_HIGH,
+
+  I2C_SLAVE_REG_I_MAGNET_Y_LOW,
+
+  I2C_SLAVE_REG_I_MAGNET_Y_HIGH,
+
+  I2C_SLAVE_REG_I_MAGNET_Z_LOW,
+
+  I2C_SLAVE_REG_I_MAGNET_Z_HIGH,
+
+
+
+  // COMPENSATED DATA
+
+  I2C_SLAVE_REG_C_ACC_X_LOW,
+
+  I2C_SLAVE_REG_C_ACC_X_HIGH,
+
+  I2C_SLAVE_REG_C_ACC_Y_LOW,
+
+  I2C_SLAVE_REG_C_ACC_Y_HIGH,
+
+  I2C_SLAVE_REG_C_ACC_Z_LOW,
+
+  I2C_SLAVE_REG_C_ACC_Z_HIGH,
+
+  I2C_SLAVE_REG_C_GYRO_X_LOW,
+
+  I2C_SLAVE_REG_C_GYRO_X_HIGH,
+
+  I2C_SLAVE_REG_C_GYRO_Y_LOW,
+
+  I2C_SLAVE_REG_C_GYRO_Y_HIGH,
+
+  I2C_SLAVE_REG_C_GYRO_Z_LOW,
+
+  I2C_SLAVE_REG_C_GYRO_Z_HIGH,
+
+  I2C_SLAVE_REG_C_MAGNET_X_LOW,
+
+  I2C_SLAVE_REG_C_MAGNET_X_HIGH,
+
+  I2C_SLAVE_REG_C_MAGNET_Y_LOW,
+
+  I2C_SLAVE_REG_C_MAGNET_Y_HIGH,
+
+  I2C_SLAVE_REG_C_MAGNET_Z_LOW,
+
+  I2C_SLAVE_REG_C_MAGNET_Z_HIGH,
+
+  I2C_SLAVE_REG_C_TEMPERATURE_LOW,
+
+  I2C_SLAVE_REG_C_TEMPERATURE_HIGH,
+
+
+
+  // Attitude - Euler angle
+
+  I2C_SLAVE_REG_ROLL_LOW,
+
+  I2C_SLAVE_REG_ROLL_HIGH,
+
+  I2C_SLAVE_REG_PITCH_LOW,
+
+  I2C_SLAVE_REG_PITCH_HIGH,
+
+  I2C_SLAVE_REG_YAW_LOW,
+
+  I2C_SLAVE_REG_YAW_HIGH,
+
+
+
+  //Attitude - Quaternion
+
+  I2C_SLAVE_REG_QUATERNIAN_X_LOW,
+
+  I2C_SLAVE_REG_QUATERNIAN_X_HIGH,
+
+  I2C_SLAVE_REG_QUATERNIAN_Y_LOW,
+
+  I2C_SLAVE_REG_QUATERNIAN_Y_HIGH,
+
+  I2C_SLAVE_REG_QUATERNIAN_Z_LOW,
+
+  I2C_SLAVE_REG_QUATERNIAN_Z_HIGH,
+
+  I2C_SLAVE_REG_QUATERNIAN_W_LOW,
+
+  I2C_SLAVE_REG_QUATERNIAN_W_HIGH,
+
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// 7세그먼트 자릿수 선택 핀
+int digit_select_pin[] = {66, 67, 68, 69};
+// 7세그먼트 모듈 연결 핀(a, b, c, d, e, f, g, dp)
+int segment_pin[] = {58, 59, 60, 61, 62, 63, 64, 65};
+
+long previous_time; // 이전 시간
+// 흐름 패턴
+byte patterns[] {
+  0x7C, 0xBC, 0xDC, 0xEC, 0xF4, 0xF8
+};
+
+// 버튼 제어핀 버튼
+int buttons[] = {14, 15, 16, 17};
+
+// 버튼 상태
+int btnState[] = {0 , 0 , 0 , 0};
+
+// 문자 LCD 연결
+//LiquidCrystal lcd (44, 45, 46, 47, 48, 49);
+
+// 버튼 제어 모드(프로그램 시작, 메뉴선택, 작동부위 선택)
+int startMode = 0, menuMode = 0, partMode = 0, partSelectMode = 0, startMusicMode = 1;
+
+void setup() {
+  //Initialization
+  Wire.begin();
+  Serial.begin(9600);
+
+  //read_rev_id();
+  delay(1000); //Wait for 1second.
+
+  ///// 소리
+  pinMode(12, OUTPUT);
+  /////
+
+
+  // 버튼 연결 핀을 입력으로 설정
+  for (int i = 0; i < 4; i++) {
+    pinMode(buttons[i], INPUT);
+  }
+
+  // 테스트 핀
+  pinMode(13, OUTPUT);
+
+  // 문자 LCD 초기화
+  lcd.begin(16, 2);
+  lcd.clear();
+
+  if (! RTC.begin()) {
+    Serial.println("Couldn't find RTC");
+    while (1);
+  }
+
+  if (! RTC.isrunning()) {
+    Serial.println("RTC is NOT running!");
+    RTC.adjust(DateTime(2021, 06, 13, 21, 10, 20));
+  }
+
+  // 출력 이미지 지정
+  GLCD.Init();
+  icon = mainLogo;
+
+  // openGLCD라이브러리 설치 디렉터리 아래 헤더 파일의 이름에 해당하는 상수
+  GLCD.DrawBitmap(icon, 0, 0);
+
+  // 외부 인터럽트 0번, FALLING MODE 설정
+  pinMode(19, INPUT_PULLUP);
+  attachInterrupt(4, interrupt, FALLING);
+
+  // 자릿수 선택 핀을 출력으로 설정
+  for (int i = 0; i < 4; i++)
+    pinMode(digit_select_pin[i], OUTPUT);
+
+  // 세그먼트 제어 핀을 출력으로 설정
+  for (int i = 0; i < 8; i++)
+    pinMode(segment_pin[i], OUTPUT);
+}
+
+void startSound() {
+  pinMode(12, OUTPUT);
+  tone(57, 262, 500);
+  delay(500);
+  noTone(57);
+  tone(57, 330, 500);
+  delay(500);
+  noTone(57);
+  tone(57, 392, 500);
+  delay(500);
+  noTone(57);
+  tone(57, 523, 500);
+  delay(500);
+  noTone(57);
+}
+
+// 외부 인터럽트 분기 함수
+void interrupt() {
+  lcd.setCursor(5, 0);
+  lcd.write("Hello!");
+  startSound();
+  startMode = 1;
+}
+
+bool read(uint8_t reg_add, uint8_t* buff , uint8_t len);
+
+bool sensor_init() {
+  uint8_t buf_whomi[1];
+  uint8_t buf_stat[1];
+
+  if (read(I2C_SLAVE_REG_WHO_AM_I, buf_whomi, 1) != 0xB1) {
+    return false;
+  }
+
+  if (read(I2C_SLAVE_REG_STATUS, buf_stat, 1) != 0x80) {
+    return false;
+  }
+  return true;
+}
+
+bool read(uint8_t reg_add, uint8_t* buff , uint8_t len) {
+  Wire.beginTransmission((uint8_t)MYAHRS_I2C_ADDRESS);
+  Wire.write(reg_add);
+  Wire.endTransmission(false);
+  Wire.requestFrom((uint8_t)MYAHRS_I2C_ADDRESS, len);
+  uint8_t cnt = 0;
+
+  while (Wire.available()) {
+    buff[cnt++] = Wire.read();
+  }
+  return (cnt == len);
+}
+
+bool write(uint8_t reg_add, uint8_t* buff , uint8_t len) {
+  Wire.beginTransmission((uint8_t)MYAHRS_I2C_ADDRESS);
+  Wire.write(reg_add);
+  for (uint8_t cnt = 0; cnt < len; cnt++) {
+    Wire.write(buff[cnt]);
+  }
+  return Wire.endTransmission(true) == 0;
+}
+
+int read_raw_data() {
+  uint8_t buf_raw_data[18];
+  read(I2C_SLAVE_REG_I_ACC_X_LOW, buf_raw_data, 18);
+
+  //Little endian
+  int16_t acc_x = (buf_raw_data[1] << 8) | buf_raw_data[0];
+  int16_t acc_y = (buf_raw_data[3] << 8) | buf_raw_data[2];
+  int16_t acc_z = (buf_raw_data[5] << 8) | buf_raw_data[4];
+  int16_t gyro_x = (buf_raw_data[7] << 8) | buf_raw_data[6];
+  int16_t gyro_y = (buf_raw_data[9] << 8) | buf_raw_data[8];
+  int16_t gyro_z = (buf_raw_data[11] << 8) | buf_raw_data[10];
+  int16_t mag_x = (buf_raw_data[13] << 8) | buf_raw_data[12];
+  int16_t mag_y = (buf_raw_data[15] << 8) | buf_raw_data[14];
+  int16_t mag_z = (buf_raw_data[17] << 8) | buf_raw_data[16];
+}
+
+
+
+int read_compensated_data() {
+  uint8_t buf_comp_data[18];
+
+  read(I2C_SLAVE_REG_C_ACC_X_LOW, buf_comp_data, 18);
+
+  int16_t acc_c_x = (buf_comp_data[1] << 8) | buf_comp_data[0];
+  int16_t acc_c_y = (buf_comp_data[3] << 8) | buf_comp_data[2];
+  int16_t acc_c_z = (buf_comp_data[5] << 8) | buf_comp_data[4];
+  int16_t gyro_c_x = (buf_comp_data[7] << 8) | buf_comp_data[6];
+  int16_t gyro_c_y = (buf_comp_data[9] << 8) | buf_comp_data[8];
+  int16_t gyro_c_z = (buf_comp_data[11] << 8) | buf_comp_data[10];
+  int16_t mag_c_x = (buf_comp_data[13] << 8) | buf_comp_data[12];
+  int16_t mag_c_y = (buf_comp_data[15] << 8) | buf_comp_data[14];
+  int16_t mag_c_z = (buf_comp_data[17] << 8) | buf_comp_data[16];
+
+  float comp_acc_x = (float)acc_c_x * 16.0 / 32767;
+  float comp_acc_y = (float)acc_c_y * 16.0 / 32767;
+  float comp_acc_z = (float)acc_c_z * 16.0 / 32767;
+  float comp_gyro_x = (float)gyro_c_x * 2000 / 32767;
+  float comp_gyro_y = (float)gyro_c_y * 2000 / 32767;
+  float comp_gyro_z = (float)gyro_c_z * 2000 / 32767;
+  float comp_mag_x = (float)mag_c_x * 0.3;
+  float comp_mag_y = (float)mag_c_y * 0.3;
+  float comp_mag_z = (float)mag_c_z * 0.3;
+}
+
+// EULER ANGLE(RPY)
+int read_euler() {
+  uint8_t buf_euler[6];
+
+  read(I2C_SLAVE_REG_ROLL_LOW, buf_euler, 6);
+
+  int16_t euler_x = (buf_euler[1] << 8) | buf_euler[0];
+  int16_t euler_y = (buf_euler[3] << 8) | buf_euler[2];
+  int16_t euler_z = (buf_euler[5] << 8) | buf_euler[4];
+
+  float roll = (float)euler_x * 180 / 32767;
+  float pitch = (float)euler_y * 180 / 32767;
+  float yaw = (float)euler_z * 180 / 32767;
+
+  // 데이터 전송 부문
+  Serial.println("start");
+  Serial.println(roll);
+  Serial.println(pitch);
+  Serial.println(yaw);
+}
+
+
+
+int read_quat() {
+  uint8_t buf_quat[8];
+
+  read(I2C_SLAVE_REG_QUATERNIAN_X_LOW, buf_quat, 8);
+
+  int16_t quat_x = (buf_quat[1] << 8) | buf_quat[0];
+  int16_t quat_y = (buf_quat[3] << 8) | buf_quat[2];
+  int16_t quat_z = (buf_quat[5] << 8) | buf_quat[4];
+  int16_t quat_w = (buf_quat[7] << 8) | buf_quat[6];
+
+  float quaternion_x = (float)quat_x / 32767;
+  float quaternion_y = (float)quat_y / 32767;
+  float quaternion_z = (float)quat_z / 32767;
+  float quaternion_w = (float)quat_w / 32767;
+}
+
+
+
+//READ REVISION ID
+int read_rev_id() {
+  uint8_t id_1 = 0;
+  uint8_t id_2 = 0;
+  read(I2C_SLAVE_REG_REV_ID_MAJOR, &id_1, 1);
+  read(I2C_SLAVE_REG_REV_ID_MAJOR, &id_2, 1);
+}
+
+void show_digit(int pos, int number) { // 위치, 출력할 숫자
+  for (int i = 0; i < 4; i++) {
+    if (i + 1000 >= pos) {
+      digitalWrite(digit_select_pin[i], LOW);
+      for (int j = 0; j < 8; j++) {
+        digitalWrite(segment_pin[j], bitRead(patterns[number], 7 - j));
+      }
+    }
+  }
+}
+
+void printFlowSegment(int num) {
+  show_digit(0, num);
+}
+
+void pullBtn1() {
+  //  lcd.setCursor(1, 0);
+  //  lcd.write("1");
+  //  digitalWrite(13, LOW);
+
+  // 스트레칭을 할건지, 교정을 할건지
+  if (startMode == 1) {
+    icon = memu1;
+    menuMode++;
+  }
+  // 교정을 할것일 때
+  if (menuMode > 1) {
+    icon = menu2;
+    // 교정부위 선택지 활성화
+    partMode = 1;
+  }
+
+  // openGLCD라이브러리 설치 디렉터리 아래 헤더 파일의 이름에 해당하는 상수
+  GLCD.DrawBitmap(icon, 0, 0);
+}
+
+
+
+void pullBtn2() {
+
+  //  lcd.setCursor(2, 0);
+  //  lcd.write("2");
+  //  digitalWrite(13, LOW);
+
+  //tone(57, 523);
+  //tone(57, 392);
+  //tone(57, 330);
+  //tone(57, 262);
+
+  // 스트레칭을 할것일 때
+  if (menuMode > 1) {
+    icon = menu3;
+    // 교정부위 선택지 활성화
+    partMode = 2;
+  }
+  menuMode = 2;
+  // openGLCD라이브러리 설치 디렉터리 아래 헤더 파일의 이름에 해당하는 상수
+  GLCD.DrawBitmap(icon, 0, 0);
+}
+
+
+
+void pullBtn3() {
+
+  //  lcd.setCursor(3, 0);
+  //  lcd.write("3");
+  //  digitalWrite(13, LOW);
+  // 교정모드 일 때
+  if (partMode == 1) {
+    partSelectMode = 1;
+  }
+  // 스트레칭모드 일 때
+  if (partMode == 2) {
+    partSelectMode = 3;
+  }
+}
+
+
+
+void pullBtn4() {
+  //  lcd.setCursor(4, 0);
+  //  lcd.write("4");
+  //  digitalWrite(13, LOW);
+  // 교정모드 일 때
+  if (partMode == 1) {
+    partSelectMode = 2;
+  }
+  // 스트레칭모드 일 때
+  if (partMode == 2) {
+    partSelectMode = 4;
+  }
+}
+
+void neckBraces() {
+  lcd.setCursor(2, 1);
+  lcd.write(" neckBraces");
+  Serial.println("b");
+  Serial.println(3);
+}
+
+void waistBraces() {
+  lcd.setCursor(2, 1);
+  lcd.write("waistBraces");
+  Serial.println("b");
+  Serial.println(4);
+}
+
+void neckStretching() {
+  lcd.setCursor(1, 1);
+  lcd.write(" neckStretch");
+  icon = neck1;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist2;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = neck2;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = neck3;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = neck4;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = neck5;
+  GLCD.DrawBitmap(icon, 0, 0);  delay(3000);
+  icon = repeat;
+  GLCD.DrawBitmap(icon, 0, 0);  delay(3000);
+  icon = neck2;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = neck3;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = neck4;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = neck5;
+  GLCD.DrawBitmap(icon, 0, 0);  delay(3000);
+
+  icon = endStretching;
+  GLCD.DrawBitmap(icon, 0, 0);  delay(3000);
+  icon = memu1;
+  GLCD.DrawBitmap(icon, 0, 0);
+  partSelectMode = 0;
+}
+
+void waistStretching() {
+  lcd.setCursor(1, 1);
+  lcd.write("waistStretch");
+  icon = waist1;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist2;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist3;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist4;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist5;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist3;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist4;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist5;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = repeat;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist3;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist4;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist5;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist3;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist4;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = waist5;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = endStretching;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  icon = memu1;
+  GLCD.DrawBitmap(icon, 0, 0); delay(3000);
+  partSelectMode = 0;
+}
+
+int prev1 = LOW, prev2 = LOW, prev3 = LOW, prev4 = LOW;
+int cnt = 0;
+// 버튼 제어 모드(프로그램 시작, 메뉴선택, 작동부위 선택)
+//int startMode = 0, menuMode = 0, partMode = 0;
+// 1: 목교정, 2: 허리교정 3: 목스트레칭 4: 허리스트레칭
+// partSelectMode
+// 음악재생모드
+// startMusicMode
+void loop() {
+  if (startMode == 1 && startMusicMode == 1) {
+    startSound();
+    startMusicMode = 0;
+  }
+
+  // 버튼 입력에 따른 프로그램 제어
+  if (digitalRead(14) == HIGH && prev1 != digitalRead(14)) {
+    if (startMode == 1) pullBtn1();
+  }
+  if (digitalRead(15) == HIGH && prev2 != digitalRead(15)) {
+    if (startMode == 1) pullBtn2();
+  }
+  if (digitalRead(16) == HIGH && prev3 != digitalRead(16)) {
+    if (partMode != 0) pullBtn3();
+  }
+  if (digitalRead(17) == HIGH && prev4 != digitalRead(17)) {
+    if (partMode != 0) pullBtn4();
+  }
+
+  prev1 = digitalRead(14);
+  prev2 = digitalRead(15);
+  prev3 = digitalRead(16);
+  prev4 = digitalRead(17);
+
+  if (partSelectMode == 1) neckBraces();
+  if (partSelectMode == 2) waistBraces();
+  if (partSelectMode == 3) neckStretching();
+  if (partSelectMode == 4) waistStretching();
+
+  long time_current = millis();
+
+  if (time_current - previous_time >= 1000) {
+    previous_time  = time_current;
+    if(cnt == 6) cnt = 0;
+    printFlowSegment(cnt);
+    cnt++;
+  }
+
+
+  read_raw_data();
+  read_compensated_data();
+  read_euler();
+  read_quat();
+
+}
