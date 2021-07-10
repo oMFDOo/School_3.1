@@ -11,3 +11,4 @@
 3. 아두이노 코딩 교육용 라인트레이서 키트
 출처 :  https://eduino.kr/product/detail.html?product_no=392&cate_no=102&display_group=1
 추가 구매 부품 : 키트 1세트만 라인트레이서 트랙을 구매할지 아님 다른 판을 살지
++ 건전지, 전기테이프
