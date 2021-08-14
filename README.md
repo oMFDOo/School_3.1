@@ -4,7 +4,8 @@
 
 
 ![](https://github.com/oMFDOo/School_3.1/blob/main/1.%EB%8C%80%EB%82%B4%EC%99%B8%ED%99%9C%EB%8F%99/3%ED%95%99%EB%85%841%ED%95%99%EA%B8%B0%20%EC%84%B1%EC%A0%81.png?raw=true)
-
+신청학점 : 23.25    취득학점 : 23.25    
+평점총점 : 99.00    평점평균 : 4.30000    석차 : 4/44
 <br>
 <br>
 
